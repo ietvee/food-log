@@ -50,58 +50,93 @@ class _ProfileState extends State<Profile> {
         body: Container(
           child: Column(
             children: <Widget>[
-              Container(
-                child: FutureBuilder(
-                  future: getDocument(),
-                  builder: (context, AsyncSnapshot<DocumentSnapshot> snapshot) {
-                    if (snapshot.connectionState == ConnectionState.done) {
-                      return Text(
-                          snapshot.data["fname"].toString().toUpperCase());
-                    } else if (snapshot.connectionState ==
-                        ConnectionState.none) {
-                      return Text("No data");
-                    }
-                    return CircularProgressIndicator();
-                  },
+              Padding(
+                padding: const EdgeInsets.fromLTRB(50, 10, 50, 60),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Container(
+                          child: FutureBuilder(
+                            future: getDocument(),
+                            builder: (context,
+                                AsyncSnapshot<DocumentSnapshot> snapshot) {
+                              if (snapshot.connectionState ==
+                                  ConnectionState.done) {
+                                return Text(
+                                    snapshot.data["fname"]
+                                        .toString()
+                                        .toUpperCase(),
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 38));
+                              } else if (snapshot.connectionState ==
+                                  ConnectionState.none) {
+                                return Text("No data");
+                              }
+                              return CircularProgressIndicator();
+                            },
+                          ),
+                        ),
+                        Container(
+                          child: FutureBuilder(
+                            future: getDocument(),
+                            builder: (context,
+                                AsyncSnapshot<DocumentSnapshot> snapshot) {
+                              if (snapshot.connectionState ==
+                                  ConnectionState.done) {
+                                return Text(
+                                    snapshot.data["surname"]
+                                        .toString()
+                                        .toUpperCase(),
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 38));
+                              } else if (snapshot.connectionState ==
+                                  ConnectionState.none) {
+                                return Text("No data");
+                              }
+                              return CircularProgressIndicator();
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
+                    CircleAvatar(
+                      radius: 50.0,
+                      backgroundImage: AssetImage('lib/assets/profile.jpg'),
+                      backgroundColor: Colors.transparent,
+                    ),
+                  ],
                 ),
               ),
-              Container(
-                child: FutureBuilder(
-                  future: getDocument(),
-                  builder: (context, AsyncSnapshot<DocumentSnapshot> snapshot) {
-                    if (snapshot.connectionState == ConnectionState.done) {
-                      return Text(
-                          snapshot.data["surname"].toString().toUpperCase());
-                    } else if (snapshot.connectionState ==
-                        ConnectionState.none) {
-                      return Text("No data");
-                    }
-                    return CircularProgressIndicator();
-                  },
+              Padding(
+                padding: const EdgeInsets.fromLTRB(50, 10, 50, 60),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: <Widget>[
+                    RaisedButton(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(40),
+                      ),
+                      child: Text(
+                        'Logout',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                      color: Colors.orangeAccent,
+                      onPressed: () {
+                        FirebaseAuth.instance
+                            .signOut()
+                            .then((result) => Navigator.pushReplacementNamed(
+                                context, "/login"))
+                            .catchError((err) => print(err));
+                      },
+                    ),
+                  ],
                 ),
-              ),
-              Text(
-                'See you again soon !',
-                style: TextStyle(
-                  fontSize: 24.0,
-                ),
-              ),
-              RaisedButton(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(40),
-                ),
-                child: Text(
-                  'Logout',
-                  style: TextStyle(color: Colors.white),
-                ),
-                color: Colors.orangeAccent,
-                onPressed: () {
-                  FirebaseAuth.instance
-                      .signOut()
-                      .then((result) =>
-                          Navigator.pushReplacementNamed(context, "/login"))
-                      .catchError((err) => print(err));
-                },
               ),
             ],
           ),
