@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:food_app/pages/bottomNav.dart';
 import 'package:food_app/pages/home.dart';
 
 class LoginPage extends StatefulWidget {
@@ -16,9 +17,19 @@ class _LoginPageState extends State<LoginPage> {
   TextEditingController pwdInputController;
 
   @override
-  initState() {
+  void initState() {
     emailInputController = new TextEditingController();
     pwdInputController = new TextEditingController();
+
+    FirebaseAuth.instance.currentUser().then((currentUser) {
+      if (currentUser != null) {
+        Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(
+                builder: (context) => HomeScreen(uid: currentUser.uid)),
+            (Route<dynamic> route) => false);
+      }
+    });
     super.initState();
   }
 
@@ -35,7 +46,7 @@ class _LoginPageState extends State<LoginPage> {
 
   String pwdValidator(String value) {
     if (value.length < 8) {
-      return 'Password must be longer than 8 characters';
+      return 'Incorrect password. \nThe password you entered is incorrect. Please try again. ';
     } else {
       return null;
     }
