@@ -2,17 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:intl/intl.dart';
 
 class EditProfile extends StatefulWidget {
   final bool isEdit;
   final String documentId;
-  final String fname;
+  final String username;
 
   EditProfile(
       {@required this.isEdit,
       this.documentId = '',
-      this.fname = '',
+      this.username = '',
       Key key,
       this.title,
       this.uid})
@@ -40,7 +39,7 @@ class _EditProfileState extends State<EditProfile> {
   @override
   void initState() {
     if (widget.isEdit) {
-      controllerName.text = widget.fname;
+      controllerName.text = widget.username;
     }
     this.getCurrentUser();
     super.initState();
@@ -70,7 +69,7 @@ class _EditProfileState extends State<EditProfile> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   SizedBox(height: 16.0),
-                  _buildWidgetFormEditFood(),
+                  _buildWidgetFormEditProfile(),
                   isLoading
                       ? Container(
                           color: Colors.white,
@@ -82,7 +81,7 @@ class _EditProfileState extends State<EditProfile> {
                             ),
                           ),
                         )
-                      : _buildWidgetBtnCreateFood(),
+                      : _buildWidgetBtnUpdateProfile(),
                 ],
               ),
             ),
@@ -92,7 +91,7 @@ class _EditProfileState extends State<EditProfile> {
     );
   }
 
-  Widget _buildWidgetFormEditFood() {
+  Widget _buildWidgetFormEditProfile() {
     return Expanded(
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 0.0),
@@ -130,14 +129,14 @@ class _EditProfileState extends State<EditProfile> {
     );
   }
 
-  Widget _buildWidgetBtnCreateFood() {
+  Widget _buildWidgetBtnUpdateProfile() {
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.fromLTRB(20, 0, 20, 250),
       child: RaisedButton(
         color: Colors.orangeAccent,
         child: Text(
-          widget.isEdit ? 'UPDATE' : 'CREATE',
+          'UPDATE',
           style: TextStyle(
             fontSize: 16.0,
             fontWeight: FontWeight.bold,
@@ -151,7 +150,7 @@ class _EditProfileState extends State<EditProfile> {
           String name = controllerName.text;
 
           if (name.isEmpty) {
-            _showSnackBarMessage('Name is required');
+            _showSnackBarMessage('Cannot be left empty');
             return;
           }
           setState(() => isLoading = true);
@@ -164,23 +163,12 @@ class _EditProfileState extends State<EditProfile> {
                 await transaction.update(
                   documentFood,
                   <String, dynamic>{
-                    'fname': name,
+                    'username': name,
                   },
                 );
                 Navigator.pop(context, true);
               }
             });
-          } else {
-            CollectionReference foods = firestore
-                .collection("users")
-                .document(currentUser.uid)
-                .collection("foods");
-            DocumentReference result = await foods.add(<String, dynamic>{
-              'name': name,
-            });
-            if (result.documentID != null) {
-              Navigator.pop(context, true);
-            }
           }
         },
       ),
