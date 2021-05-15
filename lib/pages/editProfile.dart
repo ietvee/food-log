@@ -92,39 +92,66 @@ class _EditProfileState extends State<EditProfile> {
   }
 
   Widget _buildWidgetFormEditProfile() {
-    return Expanded(
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 0.0),
-        child: Column(
-          children: <Widget>[
-            Container(
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(40),
-                  color: Colors.white,
-                  boxShadow: [
-                    BoxShadow(
-                      color: Color.fromRGBO(196, 135, 198, .3),
-                      blurRadius: 20,
-                      offset: Offset(0, 10),
-                    )
-                  ]),
-              child: Column(
-                children: <Widget>[
-                  Container(
-                    padding: EdgeInsets.all(10),
-                    child: TextField(
-                      controller: controllerName,
-                      decoration: InputDecoration(
-                        border: InputBorder.none,
-                      ),
-                      style: TextStyle(fontSize: 16.0),
-                    ),
-                  )
-                ],
-              ),
+    return Padding(
+      padding: const EdgeInsets.all(12.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          GestureDetector(
+            onTap: () {
+              Navigator.pop(context);
+            },
+            child: Icon(
+              Icons.arrow_back_ios,
+              color: Colors.orangeAccent,
             ),
-          ],
-        ),
+          ),
+          SizedBox(height: 16.0),
+          // Padding(
+          //   padding: const EdgeInsets.fromLTRB(8, 20, 8, 10),
+          //   child: Text(
+          //     '',
+          //     style: Theme.of(context).textTheme.display1.merge(
+          //           TextStyle(color: Colors.grey[800], fontSize: 24),
+          //         ),
+          //   ),
+          // ),
+          SizedBox(height: 16.0),
+          Container(
+            padding:
+                const EdgeInsets.symmetric(horizontal: 16.0, vertical: 0.0),
+            child: Column(
+              children: <Widget>[
+                Container(
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(40),
+                      color: Colors.white,
+                      boxShadow: [
+                        BoxShadow(
+                          color: Color.fromRGBO(196, 135, 198, .3),
+                          blurRadius: 20,
+                          offset: Offset(0, 10),
+                        )
+                      ]),
+                  child: Column(
+                    children: <Widget>[
+                      Container(
+                        padding: EdgeInsets.all(10),
+                        child: TextField(
+                          controller: controllerName,
+                          decoration: InputDecoration(
+                            border: InputBorder.none,
+                          ),
+                          style: TextStyle(fontSize: 16.0),
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -136,7 +163,7 @@ class _EditProfileState extends State<EditProfile> {
       child: RaisedButton(
         color: Colors.orangeAccent,
         child: Text(
-          'UPDATE',
+          'Done',
           style: TextStyle(
             fontSize: 16.0,
             fontWeight: FontWeight.bold,

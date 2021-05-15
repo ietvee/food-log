@@ -72,6 +72,10 @@ class _ProfileState extends State<Profile> {
 
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back_ios),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
         iconTheme: IconThemeData(
           color: Colors.orangeAccent,
         ),
@@ -126,11 +130,9 @@ class _ProfileState extends State<Profile> {
                     return Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: <Widget>[
-                        Text(
-                          snapshot.data['fname'],
-                          style: TextStyle(
-                              color: Colors.blue, fontWeight: FontWeight.bold),
-                        ),
+                        Text(snapshot.data['username'],
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 38)),
                         IconButton(
                           icon: const Icon(Icons.mode_edit),
                           onPressed: () {
@@ -141,7 +143,7 @@ class _ProfileState extends State<Profile> {
                                   return EditProfile(
                                     isEdit: true,
                                     // documentId: document.documentID,
-                                    fname: snapshot.data['fname'],
+                                    username: snapshot.data['username'],
                                   );
                                 }),
                               );
@@ -181,6 +183,33 @@ class _ProfileState extends State<Profile> {
                 //       );
                 //     });
               },
+            ),
+          ),
+
+          Padding(
+            padding: const EdgeInsets.fromLTRB(50, 10, 50, 60),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: <Widget>[
+                RaisedButton(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(40),
+                  ),
+                  child: Text(
+                    'Logout',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  color: Colors.orangeAccent,
+                  onPressed: () {
+                    FirebaseAuth.instance
+                        .signOut()
+                        .then((result) =>
+                            Navigator.pushReplacementNamed(context, "/login"))
+                        .catchError((err) => print(err));
+                  },
+                ),
+              ],
             ),
           ),
         ],
