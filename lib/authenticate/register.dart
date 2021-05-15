@@ -14,6 +14,7 @@ class _RegisterPageState extends State<RegisterPage> {
   final GlobalKey<FormState> _registerFormKey = GlobalKey<FormState>();
   TextEditingController firstNameInputController;
   TextEditingController lastNameInputController;
+  TextEditingController usernameInputController;
   TextEditingController emailInputController;
   TextEditingController pwdInputController;
   TextEditingController confirmPwdInputController;
@@ -22,6 +23,7 @@ class _RegisterPageState extends State<RegisterPage> {
   initState() {
     firstNameInputController = new TextEditingController();
     lastNameInputController = new TextEditingController();
+    usernameInputController = new TextEditingController();
     emailInputController = new TextEditingController();
     pwdInputController = new TextEditingController();
     confirmPwdInputController = new TextEditingController();
@@ -155,6 +157,38 @@ class _RegisterPageState extends State<RegisterPage> {
                               padding: EdgeInsets.all(10),
                               child: TextFormField(
                                 decoration: InputDecoration(
+                                  hintText: 'username',
+                                  border: InputBorder.none,
+                                ),
+                                controller: usernameInputController,
+                                // validator: (value) {
+                                //   if (value.length < 3) {
+                                //     return "Please enter a valid last name.";
+                                //   }
+                                // }
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      SizedBox(height: 20.0),
+                      Container(
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(40),
+                            color: Colors.white,
+                            boxShadow: [
+                              BoxShadow(
+                                color: Color.fromRGBO(196, 135, 198, .3),
+                                blurRadius: 20,
+                                offset: Offset(0, 10),
+                              )
+                            ]),
+                        child: Column(
+                          children: <Widget>[
+                            Container(
+                              padding: EdgeInsets.all(10),
+                              child: TextFormField(
+                                decoration: InputDecoration(
                                   hintText: 'email',
                                   border: InputBorder.none,
                                 ),
@@ -261,6 +295,8 @@ class _RegisterPageState extends State<RegisterPage> {
                                                 firstNameInputController.text,
                                             "surname":
                                                 lastNameInputController.text,
+                                            "username":
+                                                usernameInputController.text,
                                             "email": emailInputController.text,
                                           })
                                           .then((result) => {
