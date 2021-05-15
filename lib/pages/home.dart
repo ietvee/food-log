@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:food_app/pages/bottomNav.dart';
 import 'package:food_app/pages/create_food.dart';
 import 'package:food_app/pages/profile.dart';
-import 'package:food_app/pages/temp.dart';
 
 void main() => runApp(MyApp());
 
