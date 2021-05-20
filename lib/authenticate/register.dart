@@ -156,17 +156,16 @@ class _RegisterPageState extends State<RegisterPage> {
                             Container(
                               padding: EdgeInsets.all(10),
                               child: TextFormField(
-                                decoration: InputDecoration(
-                                  hintText: 'username',
-                                  border: InputBorder.none,
-                                ),
-                                controller: usernameInputController,
-                                // validator: (value) {
-                                //   if (value.length < 3) {
-                                //     return "Please enter a valid last name.";
-                                //   }
-                                // }
-                              ),
+                                  decoration: InputDecoration(
+                                    hintText: 'username',
+                                    border: InputBorder.none,
+                                  ),
+                                  controller: usernameInputController,
+                                  validator: (value) {
+                                    if (value.length < 3) {
+                                      return "Please enter a valid username.";
+                                    }
+                                  }),
                             ),
                           ],
                         ),

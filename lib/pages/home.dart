@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:food_app/pages/create_food.dart';
+import 'package:food_app/pages/browseFood.dart';
 import 'package:food_app/pages/profile.dart';
 
 void main() => runApp(MyApp());
@@ -20,10 +21,9 @@ class MyApp extends StatelessWidget {
 }
 
 class HomeScreen extends StatefulWidget {
-  HomeScreen({Key key, this.title, this.uid})
-      : super(key: key); //update this to include the uid in the constructor
+  HomeScreen({Key key, this.title, this.uid}) : super(key: key);
   final String title;
-  final String uid; //include this
+  final String uid;
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
@@ -31,7 +31,6 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   final GlobalKey<ScaffoldState> scaffoldState = GlobalKey<ScaffoldState>();
   final Firestore firestore = Firestore.instance;
-  // final AppColor appColor = AppColor();
   FirebaseUser currentUser;
 
   @override
@@ -42,6 +41,14 @@ class _HomeScreenState extends State<HomeScreen> {
 
   void getCurrentUser() async {
     currentUser = await FirebaseAuth.instance.currentUser();
+  }
+
+  Stream<DocumentSnapshot> getData() async* {
+    FirebaseUser user = await FirebaseAuth.instance.currentUser();
+    yield* Firestore.instance
+        .collection('users')
+        .document(user.uid)
+        .snapshots();
   }
 
   @override
@@ -56,20 +63,54 @@ class _HomeScreenState extends State<HomeScreen> {
           padding: EdgeInsets.zero,
           children: <Widget>[
             DrawerHeader(
-              child: Text(
-                'Welcome',
-                style: TextStyle(color: Colors.white, fontSize: 24),
+              child: Row(
+                children: <Widget>[
+                  Text(
+                    'Welcome',
+                    style: TextStyle(color: Colors.white, fontSize: 24),
+                  ),
+                  Expanded(
+                    child: StreamBuilder(
+                      stream: getData().asBroadcastStream(),
+                      builder: (BuildContext context, snapshot) {
+                        if (!snapshot.hasData) {
+                          return Center(child: CircularProgressIndicator());
+                        }
+                        return ListView.builder(
+                          shrinkWrap: true,
+                          itemCount: 1,
+                          itemBuilder: (BuildContext context, int) {
+                            return Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: <Widget>[
+                                Text(snapshot.data['username'],
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 24)),
+                              ],
+                            );
+                          },
+                        );
+                      },
+                    ),
+                  ),
+                ],
               ),
               decoration: BoxDecoration(color: Colors.orangeAccent),
             ),
             ListTile(
-              title: Text('Item 1'),
-              onTap: () {},
+              title: Text('Browse some idea!'),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => FoodData()),
+                );
+              },
             ),
-            ListTile(
-              title: Text('Item 2'),
-              onTap: () {},
-            ),
+            // ListTile(
+            //   title: Text('Item 2'),
+            //   onTap: () {},
+            // ),
           ],
         ),
       ),

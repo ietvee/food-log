@@ -164,24 +164,46 @@ class _LoginPageState extends State<LoginPage> {
                             textColor: Colors.white,
                             onPressed: () {
                               if (_loginFormKey.currentState.validate()) {
-                                FirebaseAuth.instance
-                                    .signInWithEmailAndPassword(
-                                        email: emailInputController.text,
-                                        password: pwdInputController.text)
-                                    .then((currentUser) => Firestore.instance
-                                        .collection("users")
-                                        .document(currentUser.uid)
-                                        .get()
-                                        .then((DocumentSnapshot result) =>
-                                            Navigator.pushReplacement(
-                                                context,
-                                                MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        HomeScreen(
-                                                          uid: currentUser.uid,
-                                                        ))))
-                                        .catchError((err) => print(err)))
-                                    .catchError((err) => print(err));
+                                if (pwdInputController.text ==
+                                    pwdInputController.text) {
+                                  FirebaseAuth.instance
+                                      .signInWithEmailAndPassword(
+                                          email: emailInputController.text,
+                                          password: pwdInputController.text)
+                                      .then((currentUser) => Firestore.instance
+                                          .collection("users")
+                                          .document(currentUser.uid)
+                                          .get()
+                                          .then((DocumentSnapshot result) =>
+                                              Navigator.pushReplacement(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          HomeScreen(
+                                                            uid:
+                                                                currentUser.uid,
+                                                          ))))
+                                          .catchError((err) => print(err)))
+                                      .catchError((err) => print(err));
+                                } else {
+                                  showDialog(
+                                      context: context,
+                                      builder: (BuildContext context) {
+                                        return AlertDialog(
+                                          title: Text("Error"),
+                                          content: Text(
+                                              "The passwords do not match"),
+                                          actions: <Widget>[
+                                            FlatButton(
+                                              child: Text("Close"),
+                                              onPressed: () {
+                                                Navigator.of(context).pop();
+                                              },
+                                            )
+                                          ],
+                                        );
+                                      });
+                                }
                               }
                             },
                           ),
