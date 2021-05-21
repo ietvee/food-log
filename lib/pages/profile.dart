@@ -116,80 +116,78 @@ class _ProfileState extends State<Profile> {
           //     return CircularProgressIndicator();
           //   },
           // ),
-          Expanded(
-            child: StreamBuilder(
-              stream: getData(),
-              builder: (BuildContext context, snapshot) {
-                if (!snapshot.hasData) {
-                  return Center(child: CircularProgressIndicator());
-                }
-                return ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: 1,
-                  itemBuilder: (BuildContext context, int) {
-                    return Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: <Widget>[
-                        Text(snapshot.data['username'],
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold, fontSize: 38)),
-                        IconButton(
-                          icon: const Icon(Icons.mode_edit),
-                          onPressed: () {
-                            setState(() {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(builder: (context) {
-                                  return EditProfile(
-                                    isEdit: true,
-                                    // documentId: document.documentID,
-                                    username: snapshot.data['username'],
-                                  );
-                                }),
-                              );
-                            });
-                          },
-                        ),
-                      ],
-                    );
-                  },
-                );
-                // return ListView.builder(
-                //     padding: EdgeInsets.all(8.0),
-                //     itemCount: snapshot.data.documents.length,
-                //     itemBuilder: (BuildContext context, int index) {
-                //       DocumentSnapshot document =
-                //           snapshot.data.documents[index];
-                //       Map<String, dynamic> food = document.data;
-                //       return ListTile(
-                //         title: IconButton(
-                //           icon: const Icon(Icons.mode_edit),
-                //           onPressed: () {
-                //             setState(() {
-                //               Navigator.push(
-                //                 context,
-                //                 MaterialPageRoute(builder: (context) {
-                //                   return EditProfile(
-                //                     isEdit: true,
-                //                     documentId: document.documentID,
-                //                     fname: food['fname'],
-                //                   );
-                //                 }),
-                //               );
-                //             });
-                //           },
-                //         ),
-                //         trailing: Text(snapshot.data["fname"]),
-                //       );
-                //     });
-              },
-            ),
+          StreamBuilder(
+            stream: getData(),
+            builder: (BuildContext context, snapshot) {
+              if (!snapshot.hasData) {
+                return Center(child: CircularProgressIndicator());
+              }
+              return ListView.builder(
+                shrinkWrap: true,
+                itemCount: 1,
+                itemBuilder: (BuildContext context, int) {
+                  return Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: <Widget>[
+                      Text(snapshot.data['username'],
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 38)),
+                      IconButton(
+                        icon: const Icon(Icons.mode_edit),
+                        onPressed: () {
+                          setState(() {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) {
+                                return EditProfile(
+                                  isEdit: true,
+                                  // documentId: document.documentID,
+                                  username: snapshot.data['username'],
+                                );
+                              }),
+                            );
+                          });
+                        },
+                      ),
+                    ],
+                  );
+                },
+              );
+              // return ListView.builder(
+              //     padding: EdgeInsets.all(8.0),
+              //     itemCount: snapshot.data.documents.length,
+              //     itemBuilder: (BuildContext context, int index) {
+              //       DocumentSnapshot document =
+              //           snapshot.data.documents[index];
+              //       Map<String, dynamic> food = document.data;
+              //       return ListTile(
+              //         title: IconButton(
+              //           icon: const Icon(Icons.mode_edit),
+              //           onPressed: () {
+              //             setState(() {
+              //               Navigator.push(
+              //                 context,
+              //                 MaterialPageRoute(builder: (context) {
+              //                   return EditProfile(
+              //                     isEdit: true,
+              //                     documentId: document.documentID,
+              //                     fname: food['fname'],
+              //                   );
+              //                 }),
+              //               );
+              //             });
+              //           },
+              //         ),
+              //         trailing: Text(snapshot.data["fname"]),
+              //       );
+              //     });
+            },
           ),
 
           Padding(
             padding: const EdgeInsets.fromLTRB(50, 10, 50, 60),
             child: Row(
-              crossAxisAlignment: CrossAxisAlignment.end,
+              // crossAxisAlignment: CrossAxisAlignment.end,
               mainAxisAlignment: MainAxisAlignment.end,
               children: <Widget>[
                 RaisedButton(
