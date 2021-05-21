@@ -58,62 +58,6 @@ class _HomeScreenState extends State<HomeScreen> {
     double heightScreen = mediaQueryData.size.height;
 
     return Scaffold(
-      drawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: <Widget>[
-            DrawerHeader(
-              child: Row(
-                children: <Widget>[
-                  Text(
-                    'Welcome',
-                    style: TextStyle(color: Colors.white, fontSize: 24),
-                  ),
-                  Expanded(
-                    child: StreamBuilder(
-                      stream: getData().asBroadcastStream(),
-                      builder: (BuildContext context, snapshot) {
-                        if (!snapshot.hasData) {
-                          return Center(child: CircularProgressIndicator());
-                        }
-                        return ListView.builder(
-                          shrinkWrap: true,
-                          itemCount: 1,
-                          itemBuilder: (BuildContext context, int) {
-                            return Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: <Widget>[
-                                Text(snapshot.data['username'],
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 24)),
-                              ],
-                            );
-                          },
-                        );
-                      },
-                    ),
-                  ),
-                ],
-              ),
-              decoration: BoxDecoration(color: Colors.orangeAccent),
-            ),
-            ListTile(
-              title: Text('Browse some idea!'),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => FoodData()),
-                );
-              },
-            ),
-            // ListTile(
-            //   title: Text('Item 2'),
-            //   onTap: () {},
-            // ),
-          ],
-        ),
-      ),
       appBar: AppBar(
         iconTheme: IconThemeData(
           color: Colors.orangeAccent,
@@ -129,30 +73,30 @@ class _HomeScreenState extends State<HomeScreen> {
                 MaterialPageRoute(builder: (context) => Profile()),
               );
             },
-            child: Row(
-              children: [
-                CircleAvatar(
-                  radius: 30.0,
-                  backgroundImage: AssetImage('lib/assets/profile.jpg'),
-                  backgroundColor: Colors.transparent,
-                ),
-              ],
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+              child: Row(
+                children: [
+                  CircleAvatar(
+                    radius: 30.0,
+                    backgroundImage: AssetImage('lib/assets/profile.jpg'),
+                    backgroundColor: Colors.transparent,
+                  ),
+                ],
+              ),
             ),
           ),
         ],
       ),
       key: scaffoldState,
-
       backgroundColor: Colors.white,
       body: SafeArea(
         child: Stack(
           children: <Widget>[
-            // WidgetBackground(),
             _buildWidgetListTodo(widthScreen, heightScreen, context),
           ],
         ),
       ),
-      // bottomNavigationBar: BottomNav(),
       floatingActionButton: FloatingActionButton(
         child: Icon(
           Icons.add,
@@ -174,7 +118,6 @@ class _HomeScreenState extends State<HomeScreen> {
         },
         backgroundColor: Colors.orangeAccent,
       ),
-      // bottomNavigationBar: CustomNavigatorHomePage(),
     );
   }
 
@@ -184,18 +127,59 @@ class _HomeScreenState extends State<HomeScreen> {
       width: widthScreen,
       height: heightScreen,
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Padding(
-            padding: const EdgeInsets.only(left: 16.0, top: 16.0),
-            child: Text(
-              'Welcome to your \npersonal food log',
-              style: Theme.of(context).textTheme.title,
+            padding: const EdgeInsets.fromLTRB(20, 16, 20, 30),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Row(
+                      children: <Widget>[
+                        Text(
+                          'Hello',
+                          style: TextStyle(fontSize: 24),
+                        ),
+                        SizedBox(width: 10),
+                        StreamBuilder(
+                          stream: getData().asBroadcastStream(),
+                          builder: (BuildContext context, snapshot) {
+                            if (!snapshot.hasData) {
+                              return Center(child: CircularProgressIndicator());
+                            }
+                            return Text(snapshot.data['username'],
+                                style: TextStyle(fontSize: 24));
+                          },
+                        ),
+                      ],
+                    ),
+                    RaisedButton(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(40),
+                      ),
+                      child: Text(
+                        'Browse Recipe',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                      color: Colors.orangeAccent,
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => FoodData()),
+                        );
+                      },
+                    ),
+                  ],
+                ),
+                Text('It\s time to share your food journey! ')
+              ],
             ),
           ),
           Expanded(
             child: Padding(
-              padding: const EdgeInsets.only(top: 16.0, bottom: 50),
+              padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
               child: StreamBuilder<QuerySnapshot>(
                 stream: firestore
                     .collection('users')
@@ -208,7 +192,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     return Center(child: CircularProgressIndicator());
                   }
                   return ListView.builder(
-                    padding: EdgeInsets.all(8.0),
+                    // padding: EdgeInsets.all(8.0),
                     itemCount: snapshot.data.documents.length,
                     itemBuilder: (BuildContext context, int index) {
                       DocumentSnapshot document =
@@ -216,7 +200,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       Map<String, dynamic> food = document.data;
                       String strDate = food['date'];
                       return Padding(
-                        padding: const EdgeInsets.all(5.0),
+                        padding: const EdgeInsets.only(bottom: 10),
                         child: Container(
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(20),
