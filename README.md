@@ -1,6 +1,7 @@
 # food_app
 
-A new Flutter project.
+It is an app for user to log in and create, read, update and delete of food record.
+Food records are stored using Cloud Firestore database.
 
 ## Getting Started
 
