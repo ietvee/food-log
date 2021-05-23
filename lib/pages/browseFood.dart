@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'package:flutter_linkify/flutter_linkify.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'dart:core';
 
 class FoodData extends StatelessWidget {
   final String apiUrl =
-      "https://api.edamam.com/search?q=chicken&app_id={ID}}&app_key={KEY}&from=0&to=100&calories=591-722&health=alcohol-free";
+      "https://api.edamam.com/search?q=chicken&app_id=2a8139ca&app_key=7c2a72e3232ab19beadbad328c0fe09f&from=0&to=100";
 
   Future<List<dynamic>> fetchFoods() async {
     var result = await http.get(apiUrl);
@@ -13,6 +16,14 @@ class FoodData extends StatelessWidget {
 
   String _name(dynamic food) {
     return food['recipe']['label'];
+  }
+
+  String _url(dynamic food) {
+    return food['recipe']['url'];
+  }
+
+  String _image(dynamic image) {
+    return image['recipe']['image'];
   }
 
   @override
@@ -33,8 +44,9 @@ class FoodData extends StatelessWidget {
               ),
             ),
           ),
-          Expanded(
+          Flexible(
             child: Container(
+              height: 700,
               child: FutureBuilder<List<dynamic>>(
                 future: fetchFoods(),
                 builder: (BuildContext context, AsyncSnapshot snapshot) {
@@ -51,11 +63,44 @@ class FoodData extends StatelessWidget {
                               height: 200,
                               width: 400,
                               child: Card(
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(15.0),
+                                ),
                                 child: Padding(
                                   padding: const EdgeInsets.all(20.0),
                                   child: Column(
                                     children: <Widget>[
-                                      Text(_name(snapshot.data[index])),
+                                      Image(
+                                        image: NetworkImage(
+                                            _image(snapshot.data[index])),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.fromLTRB(
+                                            0, 20, 0, 0),
+                                        child: Text(
+                                          _name(snapshot.data[index]),
+                                          style: TextStyle(fontSize: 28),
+                                        ),
+                                      ),
+                                      Row(
+                                        children: [
+                                          Text("Click here to know more:"),
+                                        ],
+                                      ),
+                                      Linkify(
+                                        onOpen: (link) async {
+                                          if (await canLaunch(link.url)) {
+                                            await launch(link.url);
+                                          } else {
+                                            throw 'Could not launch $link';
+                                          }
+                                        },
+                                        text: _url(snapshot.data[index]),
+                                        style: TextStyle(color: Colors.yellow),
+                                        linkStyle: TextStyle(
+                                            color: Colors.blueAccent,
+                                            fontSize: 28),
+                                      ),
                                     ],
                                   ),
                                 ),
@@ -66,6 +111,7 @@ class FoodData extends StatelessWidget {
                   } else {
                     return Center(
                         child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
                         CircularProgressIndicator(
                           valueColor: AlwaysStoppedAnimation<Color>(
