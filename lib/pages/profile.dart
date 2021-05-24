@@ -10,9 +10,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primaryColor: Colors.orangeAccent,
-      ),
+      theme: ThemeData(primaryColor: Colors.red[400]),
       home: Profile(),
     );
   }
@@ -77,7 +75,7 @@ class _ProfileState extends State<Profile> {
           onPressed: () => Navigator.of(context).pop(),
         ),
         iconTheme: IconThemeData(
-          color: Colors.orangeAccent,
+          color: Colors.red[400],
         ),
         backgroundColor: Colors.transparent,
         bottomOpacity: 0.0,
@@ -116,6 +114,18 @@ class _ProfileState extends State<Profile> {
           //     return CircularProgressIndicator();
           //   },
           // ),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(50, 30, 20, 30),
+            child: Row(
+              children: [
+                CircleAvatar(
+                  radius: 60.0,
+                  backgroundImage: AssetImage('lib/assets/avatar.png'),
+                  backgroundColor: Colors.transparent,
+                ),
+              ],
+            ),
+          ),
           StreamBuilder(
             stream: getData(),
             builder: (BuildContext context, snapshot) {
@@ -126,30 +136,33 @@ class _ProfileState extends State<Profile> {
                 shrinkWrap: true,
                 itemCount: 1,
                 itemBuilder: (BuildContext context, int) {
-                  return Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: <Widget>[
-                      Text(snapshot.data['username'],
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 38)),
-                      IconButton(
-                        icon: const Icon(Icons.mode_edit),
-                        onPressed: () {
-                          setState(() {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(builder: (context) {
-                                return EditProfile(
-                                  isEdit: true,
-                                  // documentId: document.documentID,
-                                  username: snapshot.data['username'],
-                                );
-                              }),
-                            );
-                          });
-                        },
-                      ),
-                    ],
+                  return Padding(
+                    padding: const EdgeInsets.fromLTRB(50, 0, 20, 80),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: <Widget>[
+                        Text(snapshot.data['username'],
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 38)),
+                        IconButton(
+                          icon: const Icon(Icons.mode_edit),
+                          onPressed: () {
+                            setState(() {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) {
+                                  return EditProfile(
+                                    isEdit: true,
+                                    // documentId: document.documentID,
+                                    username: snapshot.data['username'],
+                                  );
+                                }),
+                              );
+                            });
+                          },
+                        ),
+                      ],
+                    ),
                   );
                 },
               );
@@ -188,17 +201,17 @@ class _ProfileState extends State<Profile> {
             padding: const EdgeInsets.fromLTRB(50, 10, 50, 60),
             child: Row(
               // crossAxisAlignment: CrossAxisAlignment.end,
-              mainAxisAlignment: MainAxisAlignment.end,
+              mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
                 RaisedButton(
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(40),
+                    borderRadius: BorderRadius.circular(10),
                   ),
                   child: Text(
                     'Logout',
                     style: TextStyle(color: Colors.white),
                   ),
-                  color: Colors.orangeAccent,
+                  color: Colors.red[400],
                   onPressed: () {
                     FirebaseAuth.instance
                         .signOut()

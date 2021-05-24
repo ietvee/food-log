@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primaryColor: Colors.orangeAccent,
+        primaryColor: Colors.red[400],
       ),
       home: HomeScreen(),
     );
@@ -59,9 +59,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        iconTheme: IconThemeData(
-          color: Colors.orangeAccent,
-        ),
+        iconTheme: IconThemeData(color: Colors.red[400]),
         backgroundColor: Colors.transparent,
         bottomOpacity: 0.0,
         elevation: 0.0,
@@ -79,7 +77,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 children: [
                   CircleAvatar(
                     radius: 30.0,
-                    backgroundImage: AssetImage('lib/assets/profile.jpg'),
+                    backgroundImage: AssetImage('lib/assets/avatar.png'),
                     backgroundColor: Colors.transparent,
                   ),
                 ],
@@ -109,15 +107,16 @@ class _HomeScreenState extends State<HomeScreen> {
                   builder: (context) => CreateFoodScreen(isEdit: false)));
           if (result != null && result) {
             scaffoldState.currentState.showSnackBar(SnackBar(
-              backgroundColor: Colors.deepOrange,
+              backgroundColor: Colors.red[400],
               content: Text('FOOD has been added',
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
             ));
             setState(() {});
           }
         },
-        backgroundColor: Colors.orangeAccent,
+        backgroundColor: Colors.red[400],
       ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
 
@@ -142,7 +141,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           'Hello',
                           style: TextStyle(fontSize: 24),
                         ),
-                        SizedBox(width: 10),
+                        SizedBox(width: 8),
                         StreamBuilder(
                           stream: getData().asBroadcastStream(),
                           builder: (BuildContext context, snapshot) {
@@ -153,17 +152,21 @@ class _HomeScreenState extends State<HomeScreen> {
                                 style: TextStyle(fontSize: 24));
                           },
                         ),
+                        Text(
+                          ',',
+                          style: TextStyle(fontSize: 24),
+                        ),
                       ],
                     ),
                     RaisedButton(
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(40),
+                        borderRadius: BorderRadius.circular(10),
                       ),
                       child: Text(
-                        'Browse Recipe',
+                        'Browse Food',
                         style: TextStyle(color: Colors.white),
                       ),
-                      color: Colors.orangeAccent,
+                      color: Colors.red[400],
                       onPressed: () {
                         Navigator.push(
                           context,
@@ -202,6 +205,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       return Padding(
                         padding: const EdgeInsets.only(bottom: 10),
                         child: Container(
+                          // height: 200,
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(20),
                               color: Colors.white,
@@ -214,12 +218,43 @@ class _HomeScreenState extends State<HomeScreen> {
                               ]),
                           child: ListTile(
                             title: Text(food['name']),
-                            subtitle: Text(
-                              food['description'],
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
+                            subtitle: Column(
+                              children: <Widget>[
+                                Row(
+                                  children: [
+                                    Text(
+                                      food['description'],
+                                      maxLines: 100,
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
+                                  ],
+                                ),
+                                Row(
+                                  children: [
+                                    Container(
+                                      width: 24.0,
+                                      height: 24.0,
+                                      decoration: BoxDecoration(
+                                        color: Colors.blueAccent,
+                                        shape: BoxShape.rectangle,
+                                      ),
+                                      child: Center(
+                                        child: Text(
+                                          '${int.parse(strDate.split(' ')[0])}',
+                                          style: TextStyle(color: Colors.white),
+                                        ),
+                                      ),
+                                    ),
+                                    Text(
+                                      strDate.split(' ')[1],
+                                      style: TextStyle(fontSize: 12.0),
+                                    ),
+                                  ],
+                                ),
+                                SizedBox(height: 4.0),
+                              ],
                             ),
-                            isThreeLine: false,
+                            isThreeLine: true,
                             leading: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: <Widget>[
@@ -227,8 +262,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                   width: 24.0,
                                   height: 24.0,
                                   decoration: BoxDecoration(
-                                    color: Colors.green,
-                                    shape: BoxShape.circle,
+                                    color: Colors.blueAccent,
+                                    shape: BoxShape.rectangle,
                                   ),
                                   child: Center(
                                     child: Text(
@@ -273,7 +308,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   if (result != null && result) {
                                     scaffoldState.currentState
                                         .showSnackBar(SnackBar(
-                                      backgroundColor: Colors.deepOrange,
+                                      backgroundColor: Colors.red[400],
                                       content: Text('FOOD has been updated',
                                           style: TextStyle(
                                               fontWeight: FontWeight.bold,
@@ -286,17 +321,17 @@ class _HomeScreenState extends State<HomeScreen> {
                                     context: context,
                                     builder: (BuildContext context) {
                                       return AlertDialog(
-                                        title: Text('Are You Sure'),
+                                        title: Text('Are You Sure?'),
                                         content: Text(
                                             'Do you want to delete ${food['name']}?'),
                                         actions: <Widget>[
                                           RaisedButton(
                                             shape: RoundedRectangleBorder(
                                               borderRadius:
-                                                  BorderRadius.circular(40),
+                                                  BorderRadius.circular(10),
                                             ),
                                             child: Text('No'),
-                                            color: Colors.orangeAccent,
+                                            color: Colors.red[400],
                                             onPressed: () {
                                               Navigator.pop(context);
                                             },
@@ -304,10 +339,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                           RaisedButton(
                                             shape: RoundedRectangleBorder(
                                               borderRadius:
-                                                  BorderRadius.circular(40),
+                                                  BorderRadius.circular(10),
                                             ),
                                             child: Text('Delete'),
-                                            color: Colors.orangeAccent,
+                                            color: Colors.red[400],
                                             onPressed: () {
                                               document.reference.delete();
                                               Navigator.pop(context);

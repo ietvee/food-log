@@ -60,8 +60,8 @@ class _SplashScreenState extends State<SplashScreen> {
                     child: Column(
                       children: <Widget>[
                         CircularProgressIndicator(
-                          valueColor: AlwaysStoppedAnimation<Color>(
-                              Colors.orangeAccent),
+                          valueColor:
+                              AlwaysStoppedAnimation<Color>(Colors.red[400]),
                         ),
                         Container(
                           height: 10,

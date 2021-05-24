@@ -74,7 +74,7 @@ class _CreateFoodScreenState extends State<CreateFoodScreen> {
             padding: const EdgeInsets.fromLTRB(0, 30, 0, 0),
             child: Container(
               width: widthScreen,
-              height: heightScreen,
+              height: double.infinity,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
@@ -88,7 +88,7 @@ class _CreateFoodScreenState extends State<CreateFoodScreen> {
                           child: Center(
                             child: CircularProgressIndicator(
                               valueColor: AlwaysStoppedAnimation<Color>(
-                                  Colors.orangeAccent),
+                                  Colors.red[400]),
                             ),
                           ),
                         )
@@ -114,7 +114,7 @@ class _CreateFoodScreenState extends State<CreateFoodScreen> {
             },
             child: Icon(
               Icons.arrow_back_ios,
-              color: Colors.orangeAccent,
+              color: Colors.red[400],
             ),
           ),
           SizedBox(height: 16.0),
@@ -182,6 +182,8 @@ class _CreateFoodScreenState extends State<CreateFoodScreen> {
                   Container(
                     padding: EdgeInsets.all(10),
                     child: TextField(
+                      keyboardType: TextInputType.multiline,
+                      maxLines: null,
                       controller: controllerDescription,
                       decoration: InputDecoration(
                         hintText: 'description',
@@ -241,9 +243,9 @@ class _CreateFoodScreenState extends State<CreateFoodScreen> {
   Widget _buildWidgetBtnCreateFood() {
     return Container(
       width: double.infinity,
-      padding: const EdgeInsets.fromLTRB(20, 0, 20, 250),
+      padding: const EdgeInsets.fromLTRB(20, 0, 20, 10),
       child: RaisedButton(
-        color: Colors.orangeAccent,
+        color: Colors.red[400],
         child: Text(
           widget.isEdit ? 'UPDATE' : 'CREATE',
           style: TextStyle(
@@ -253,7 +255,7 @@ class _CreateFoodScreenState extends State<CreateFoodScreen> {
         ),
         textColor: Colors.white,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(40.0),
+          borderRadius: BorderRadius.circular(10.0),
         ),
         onPressed: () async {
           String name = controllerName.text;
@@ -305,7 +307,7 @@ class _CreateFoodScreenState extends State<CreateFoodScreen> {
 
   void _showSnackBarMessage(String message) {
     scaffoldState.currentState.showSnackBar(SnackBar(
-      backgroundColor: Colors.deepOrange,
+      backgroundColor: Colors.red[400],
       content: Container(
         child: Padding(
           padding: const EdgeInsets.all(8.0),

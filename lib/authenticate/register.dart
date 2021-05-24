@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/services.dart';
 import 'package:food_app/pages/home.dart';
 
 class RegisterPage extends StatefulWidget {
@@ -57,7 +58,7 @@ class _RegisterPageState extends State<RegisterPage> {
           bottomOpacity: 0.0,
           elevation: 0.0,
           leading: IconButton(
-            icon: Icon(Icons.arrow_back_ios, color: Colors.orangeAccent),
+            icon: Icon(Icons.arrow_back_ios, color: Colors.red[400]),
             onPressed: () => Navigator.of(context).pop(),
           ),
         ),
@@ -72,7 +73,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       fontSize: 32,
                       color: Colors.black54,
                     )),
-                SizedBox(height: 60),
+                SizedBox(height: 30),
                 Form(
                   key: _registerFormKey,
                   child: Column(
@@ -156,6 +157,9 @@ class _RegisterPageState extends State<RegisterPage> {
                             Container(
                               padding: EdgeInsets.all(10),
                               child: TextFormField(
+                                  inputFormatters: [
+                                    LengthLimitingTextInputFormatter(10),
+                                  ],
                                   decoration: InputDecoration(
                                     hintText: 'username',
                                     border: InputBorder.none,
@@ -257,7 +261,7 @@ class _RegisterPageState extends State<RegisterPage> {
                           ],
                         ),
                       ),
-                      SizedBox(height: 50),
+                      SizedBox(height: 30),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: <Widget>[
@@ -271,11 +275,11 @@ class _RegisterPageState extends State<RegisterPage> {
                           ),
                           RaisedButton(
                             shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(40),
+                              borderRadius: BorderRadius.circular(10),
                             ),
                             child:
                                 Icon(Icons.arrow_forward, color: Colors.white),
-                            color: Colors.orangeAccent,
+                            color: Colors.red[400],
                             textColor: Colors.white,
                             onPressed: () {
                               if (_registerFormKey.currentState.validate()) {

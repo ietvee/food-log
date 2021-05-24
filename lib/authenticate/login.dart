@@ -156,11 +156,11 @@ class _LoginPageState extends State<LoginPage> {
                           ),
                           RaisedButton(
                             shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(40),
+                              borderRadius: BorderRadius.circular(10),
                             ),
                             child:
                                 Icon(Icons.arrow_forward, color: Colors.white),
-                            color: Colors.orangeAccent,
+                            color: Colors.red[400],
                             textColor: Colors.white,
                             onPressed: () {
                               if (_loginFormKey.currentState.validate()) {

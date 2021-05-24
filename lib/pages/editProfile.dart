@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/services.dart';
 
 class EditProfile extends StatefulWidget {
   final bool isEdit;
@@ -77,7 +78,7 @@ class _EditProfileState extends State<EditProfile> {
                           child: Center(
                             child: CircularProgressIndicator(
                               valueColor: AlwaysStoppedAnimation<Color>(
-                                  Colors.orangeAccent),
+                                  Colors.red[400]),
                             ),
                           ),
                         )
@@ -103,7 +104,7 @@ class _EditProfileState extends State<EditProfile> {
             },
             child: Icon(
               Icons.arrow_back_ios,
-              color: Colors.orangeAccent,
+              color: Colors.red[400],
             ),
           ),
           SizedBox(height: 16.0),
@@ -138,6 +139,9 @@ class _EditProfileState extends State<EditProfile> {
                       Container(
                         padding: EdgeInsets.all(10),
                         child: TextField(
+                          inputFormatters: [
+                            LengthLimitingTextInputFormatter(10),
+                          ],
                           controller: controllerName,
                           decoration: InputDecoration(
                             border: InputBorder.none,
@@ -161,7 +165,7 @@ class _EditProfileState extends State<EditProfile> {
       width: double.infinity,
       padding: const EdgeInsets.fromLTRB(20, 0, 20, 250),
       child: RaisedButton(
-        color: Colors.orangeAccent,
+        color: Colors.red[400],
         child: Text(
           'Done',
           style: TextStyle(
@@ -171,7 +175,7 @@ class _EditProfileState extends State<EditProfile> {
         ),
         textColor: Colors.white,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(40.0),
+          borderRadius: BorderRadius.circular(10.0),
         ),
         onPressed: () async {
           String name = controllerName.text;
@@ -204,7 +208,7 @@ class _EditProfileState extends State<EditProfile> {
 
   void _showSnackBarMessage(String message) {
     scaffoldState.currentState.showSnackBar(SnackBar(
-      backgroundColor: Colors.deepOrange,
+      backgroundColor: Colors.red[400],
       content: Container(
         child: Padding(
           padding: const EdgeInsets.all(8.0),
