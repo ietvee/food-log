@@ -76,7 +76,7 @@ class _HomeScreenState extends State<HomeScreen> {
               child: Row(
                 children: [
                   CircleAvatar(
-                    radius: 30.0,
+                    radius: 25.0,
                     backgroundImage: AssetImage('lib/assets/avatar.png'),
                     backgroundColor: Colors.transparent,
                   ),
@@ -91,7 +91,7 @@ class _HomeScreenState extends State<HomeScreen> {
       body: SafeArea(
         child: Stack(
           children: <Widget>[
-            _buildWidgetListTodo(widthScreen, heightScreen, context),
+            _buildWidgetHome(widthScreen, heightScreen, context),
           ],
         ),
       ),
@@ -120,7 +120,7 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Container _buildWidgetListTodo(
+  Container _buildWidgetHome(
       double widthScreen, double heightScreen, BuildContext context) {
     return Container(
       width: widthScreen,
@@ -160,7 +160,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                     RaisedButton(
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
+                        borderRadius: BorderRadius.circular(15),
                       ),
                       child: Text(
                         'Browse Food',
@@ -216,146 +216,161 @@ class _HomeScreenState extends State<HomeScreen> {
                                   offset: Offset(0, 10),
                                 )
                               ]),
-                          child: ListTile(
-                            title: Text(food['name']),
-                            subtitle: Column(
-                              children: <Widget>[
-                                Row(
-                                  children: [
-                                    Text(
-                                      food['description'],
-                                      maxLines: 100,
-                                      overflow: TextOverflow.ellipsis,
-                                    ),
-                                  ],
-                                ),
-                                Row(
-                                  children: [
-                                    Container(
-                                      width: 24.0,
-                                      height: 24.0,
-                                      decoration: BoxDecoration(
-                                        color: Colors.blueAccent,
-                                        shape: BoxShape.rectangle,
-                                      ),
-                                      child: Center(
-                                        child: Text(
-                                          '${int.parse(strDate.split(' ')[0])}',
-                                          style: TextStyle(color: Colors.white),
-                                        ),
-                                      ),
-                                    ),
-                                    Text(
-                                      strDate.split(' ')[1],
-                                      style: TextStyle(fontSize: 12.0),
-                                    ),
-                                  ],
-                                ),
-                                SizedBox(height: 4.0),
-                              ],
-                            ),
-                            isThreeLine: true,
-                            leading: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: <Widget>[
-                                Container(
-                                  width: 24.0,
-                                  height: 24.0,
-                                  decoration: BoxDecoration(
-                                    color: Colors.blueAccent,
-                                    shape: BoxShape.rectangle,
-                                  ),
-                                  child: Center(
-                                    child: Text(
-                                      '${int.parse(strDate.split(' ')[0])}',
-                                      style: TextStyle(color: Colors.white),
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: ListTile(
+                              title: Text(
+                                food['name'],
+                                style: TextStyle(
+                                    color: Colors.grey[700],
+                                    fontSize: 24.0,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              subtitle: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: <Widget>[
+                                  Text(
+                                    food['description'],
+                                    maxLines: 10,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: TextStyle(
+                                      color: Colors.grey[700],
+                                      fontSize: 20.0,
                                     ),
                                   ),
-                                ),
-                                SizedBox(height: 4.0),
-                                Text(
-                                  strDate.split(' ')[1],
-                                  style: TextStyle(fontSize: 12.0),
-                                ),
-                              ],
-                            ),
-                            trailing: PopupMenuButton(
-                              itemBuilder: (BuildContext context) {
-                                return List<PopupMenuEntry<String>>()
-                                  ..add(PopupMenuItem<String>(
-                                    value: 'edit',
-                                    child: Text('Edit'),
-                                  ))
-                                  ..add(PopupMenuItem<String>(
-                                    value: 'delete',
-                                    child: Text('Delete'),
-                                  ));
-                              },
-                              onSelected: (String value) async {
-                                if (value == 'edit') {
-                                  bool result = await Navigator.push(
-                                    context,
-                                    MaterialPageRoute(builder: (context) {
-                                      return CreateFoodScreen(
-                                        isEdit: true,
-                                        documentId: document.documentID,
-                                        name: food['name'],
-                                        description: food['description'],
-                                        date: food['date'],
-                                      );
-                                    }),
-                                  );
-                                  if (result != null && result) {
-                                    scaffoldState.currentState
-                                        .showSnackBar(SnackBar(
-                                      backgroundColor: Colors.red[400],
-                                      content: Text('FOOD has been updated',
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 18)),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    children: [
+                                      Text('Created at '),
+                                      SizedBox(width: 5),
+                                      Text(
+                                        '${int.parse(strDate.split(' ')[0])}',
+                                        style: TextStyle(
+                                            color: Colors.blueAccent,
+                                            fontSize: 18.0,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                      SizedBox(width: 4),
+                                      Text(
+                                        strDate.split(' ')[1],
+                                        style: TextStyle(
+                                            color: Colors.blueAccent,
+                                            fontSize: 18.0,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                              isThreeLine: false,
+                              // leading: Column(
+                              //   mainAxisAlignment: MainAxisAlignment.center,
+                              //   children: <Widget>[
+                              //     Container(
+                              //       width: 24.0,
+                              //       height: 24.0,
+                              //       decoration: BoxDecoration(
+                              //         color: Colors.blueAccent,
+                              //         shape: BoxShape.rectangle,
+                              //       ),
+                              //       child: Center(
+                              //         child: Text(
+                              //           '${int.parse(strDate.split(' ')[0])}',
+                              //           style: TextStyle(color: Colors.white),
+                              //         ),
+                              //       ),
+                              //     ),
+                              //     SizedBox(height: 4.0),
+                              //     Text(
+                              //       strDate.split(' ')[1],
+                              //       style: TextStyle(fontSize: 12.0),
+                              //     ),
+                              //   ],
+                              // ),
+                              trailing: PopupMenuButton(
+                                itemBuilder: (BuildContext context) {
+                                  return List<PopupMenuEntry<String>>()
+                                    ..add(PopupMenuItem<String>(
+                                      value: 'edit',
+                                      child: Text('Edit'),
+                                    ))
+                                    ..add(PopupMenuItem<String>(
+                                      value: 'delete',
+                                      child: Text('Delete'),
                                     ));
-                                    setState(() {});
+                                },
+                                onSelected: (String value) async {
+                                  if (value == 'edit') {
+                                    bool result = await Navigator.push(
+                                      context,
+                                      MaterialPageRoute(builder: (context) {
+                                        return CreateFoodScreen(
+                                          isEdit: true,
+                                          documentId: document.documentID,
+                                          name: food['name'],
+                                          description: food['description'],
+                                          date: food['date'],
+                                        );
+                                      }),
+                                    );
+                                    if (result != null && result) {
+                                      scaffoldState.currentState
+                                          .showSnackBar(SnackBar(
+                                        backgroundColor: Colors.red[400],
+                                        content: Text('FOOD has been updated',
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 18)),
+                                      ));
+                                      setState(() {});
+                                    }
+                                  } else if (value == 'delete') {
+                                    showDialog(
+                                      context: context,
+                                      builder: (BuildContext context) {
+                                        return AlertDialog(
+                                          title: Text(
+                                            'Are You Sure?',
+                                          ),
+                                          content: Text(
+                                              'Do you want to delete ${food['name']}?'),
+                                          actions: <Widget>[
+                                            RaisedButton(
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(10),
+                                              ),
+                                              child: Text('No',
+                                                  style: TextStyle(
+                                                      color: Colors.white)),
+                                              color: Colors.red[400],
+                                              onPressed: () {
+                                                Navigator.pop(context);
+                                              },
+                                            ),
+                                            RaisedButton(
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(10),
+                                              ),
+                                              child: Text('Delete',
+                                                  style: TextStyle(
+                                                      color: Colors.white)),
+                                              color: Colors.red[400],
+                                              onPressed: () {
+                                                document.reference.delete();
+                                                Navigator.pop(context);
+                                                setState(() {});
+                                              },
+                                            ),
+                                          ],
+                                        );
+                                      },
+                                    );
                                   }
-                                } else if (value == 'delete') {
-                                  showDialog(
-                                    context: context,
-                                    builder: (BuildContext context) {
-                                      return AlertDialog(
-                                        title: Text('Are You Sure?'),
-                                        content: Text(
-                                            'Do you want to delete ${food['name']}?'),
-                                        actions: <Widget>[
-                                          RaisedButton(
-                                            shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(10),
-                                            ),
-                                            child: Text('No'),
-                                            color: Colors.red[400],
-                                            onPressed: () {
-                                              Navigator.pop(context);
-                                            },
-                                          ),
-                                          RaisedButton(
-                                            shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(10),
-                                            ),
-                                            child: Text('Delete'),
-                                            color: Colors.red[400],
-                                            onPressed: () {
-                                              document.reference.delete();
-                                              Navigator.pop(context);
-                                              setState(() {});
-                                            },
-                                          ),
-                                        ],
-                                      );
-                                    },
-                                  );
-                                }
-                              },
-                              child: Icon(Icons.more_vert),
+                                },
+                                child: Icon(Icons.more_vert),
+                              ),
                             ),
                           ),
                         ),

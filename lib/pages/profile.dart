@@ -83,17 +83,19 @@ class _ProfileState extends State<Profile> {
       ),
       key: scaffoldState,
       backgroundColor: Colors.white,
-      body: SafeArea(
-        child: Stack(
-          children: <Widget>[
-            _buildWidgetListTodo(widthScreen, heightScreen, context),
-          ],
+      body: SingleChildScrollView(
+        child: SafeArea(
+          child: Stack(
+            children: <Widget>[
+              _buildWidgetProfile(widthScreen, heightScreen, context),
+            ],
+          ),
         ),
       ),
     );
   }
 
-  Container _buildWidgetListTodo(
+  Container _buildWidgetProfile(
       double widthScreen, double heightScreen, BuildContext context) {
     return Container(
       width: widthScreen,
@@ -137,7 +139,7 @@ class _ProfileState extends State<Profile> {
                 itemCount: 1,
                 itemBuilder: (BuildContext context, int) {
                   return Padding(
-                    padding: const EdgeInsets.fromLTRB(50, 0, 20, 80),
+                    padding: const EdgeInsets.fromLTRB(50, 0, 20, 0),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: <Widget>[
@@ -205,7 +207,7 @@ class _ProfileState extends State<Profile> {
               children: <Widget>[
                 RaisedButton(
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
+                    borderRadius: BorderRadius.circular(15),
                   ),
                   child: Text(
                     'Logout',

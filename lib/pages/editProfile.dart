@@ -125,7 +125,7 @@ class _EditProfileState extends State<EditProfile> {
               children: <Widget>[
                 Container(
                   decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(40),
+                      borderRadius: BorderRadius.circular(20),
                       color: Colors.white,
                       boxShadow: [
                         BoxShadow(
@@ -163,7 +163,7 @@ class _EditProfileState extends State<EditProfile> {
   Widget _buildWidgetBtnUpdateProfile() {
     return Container(
       width: double.infinity,
-      padding: const EdgeInsets.fromLTRB(20, 0, 20, 250),
+      padding: const EdgeInsets.fromLTRB(20, 0, 20, 100),
       child: RaisedButton(
         color: Colors.red[400],
         child: Text(
@@ -175,13 +175,13 @@ class _EditProfileState extends State<EditProfile> {
         ),
         textColor: Colors.white,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10.0),
+          borderRadius: BorderRadius.circular(15),
         ),
         onPressed: () async {
           String name = controllerName.text;
 
           if (name.isEmpty) {
-            _showSnackBarMessage('Cannot be left empty');
+            _showSnackBarMessage('Username cannot be left empty');
             return;
           }
           setState(() => isLoading = true);

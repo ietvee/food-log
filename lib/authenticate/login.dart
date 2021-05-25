@@ -36,16 +36,20 @@ class _LoginPageState extends State<LoginPage> {
     Pattern pattern =
         r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
     RegExp regex = new RegExp(pattern);
-    if (!regex.hasMatch(value)) {
-      return 'Invalid email format';
+    if (value.isEmpty) {
+      return 'Please enter an email';
+    } else if (!regex.hasMatch(value)) {
+      return "Invalid email";
     } else {
       return null;
     }
   }
 
   String pwdValidator(String value) {
-    if (value.length < 8) {
-      return 'Incorrect password. \nThe password you entered is incorrect. Please try again. ';
+    if (value.isEmpty) {
+      return 'Please enter a password';
+    } else if (value.length < 8) {
+      return 'Incorrect password \nThe password you entered is incorrect. Please try again';
     } else {
       return null;
     }
@@ -60,7 +64,7 @@ class _LoginPageState extends State<LoginPage> {
                 child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                Text('Hello',
+                Text('Food Log',
                     style: TextStyle(
                       fontWeight: FontWeight.w700,
                       fontSize: 48,
@@ -78,7 +82,7 @@ class _LoginPageState extends State<LoginPage> {
                     children: <Widget>[
                       Container(
                         decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(40),
+                            borderRadius: BorderRadius.circular(20),
                             color: Colors.white,
                             boxShadow: [
                               BoxShadow(
@@ -93,14 +97,9 @@ class _LoginPageState extends State<LoginPage> {
                               padding: EdgeInsets.all(10),
                               child: TextFormField(
                                 decoration: InputDecoration(
-                                    border: InputBorder.none,
-                                    // labelText: 'Last Name',
-                                    hintText: "email",
-                                    icon: Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Icon(Icons.email,
-                                          color: Colors.black12),
-                                    )),
+                                  border: InputBorder.none,
+                                  hintText: "email",
+                                ),
                                 controller: emailInputController,
                                 keyboardType: TextInputType.emailAddress,
                                 validator: emailValidator,
@@ -112,7 +111,7 @@ class _LoginPageState extends State<LoginPage> {
                       SizedBox(height: 20.0),
                       Container(
                         decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(40),
+                            borderRadius: BorderRadius.circular(20),
                             color: Colors.white,
                             boxShadow: [
                               BoxShadow(
@@ -127,13 +126,9 @@ class _LoginPageState extends State<LoginPage> {
                               padding: EdgeInsets.all(10),
                               child: TextFormField(
                                 decoration: InputDecoration(
-                                    border: InputBorder.none,
-                                    hintText: "password",
-                                    icon: Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Icon(Icons.lock,
-                                          color: Colors.black12),
-                                    )),
+                                  border: InputBorder.none,
+                                  hintText: "password",
+                                ),
                                 controller: pwdInputController,
                                 obscureText: true,
                                 validator: pwdValidator,
@@ -149,14 +144,14 @@ class _LoginPageState extends State<LoginPage> {
                           Text(
                             'Login',
                             style: TextStyle(
-                                fontSize: 30, fontWeight: FontWeight.bold),
+                                fontSize: 18, fontWeight: FontWeight.bold),
                           ),
                           SizedBox(
                             width: 20,
                           ),
                           RaisedButton(
                             shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10),
+                              borderRadius: BorderRadius.circular(15),
                             ),
                             child:
                                 Icon(Icons.arrow_forward, color: Colors.white),

@@ -72,28 +72,18 @@ class _CreateFoodScreenState extends State<CreateFoodScreen> {
         children: <Widget>[
           Padding(
             padding: const EdgeInsets.fromLTRB(0, 30, 0, 0),
-            child: Container(
-              width: widthScreen,
-              height: double.infinity,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  _buildWidgetFormCreateFood(),
-                  SizedBox(height: 16.0),
-                  _buildWidgetFormEditFood(),
-                  isLoading
-                      ? Container(
-                          color: Colors.white,
-                          padding: const EdgeInsets.all(16.0),
-                          child: Center(
-                            child: CircularProgressIndicator(
-                              valueColor: AlwaysStoppedAnimation<Color>(
-                                  Colors.red[400]),
-                            ),
-                          ),
-                        )
-                      : _buildWidgetBtnCreateFood(),
-                ],
+            child: SingleChildScrollView(
+              child: Container(
+                width: widthScreen,
+                height: heightScreen,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    _buildWidgetFormCreateFood(),
+                    SizedBox(height: 16.0),
+                    _buildWidgetFormEditFood(),
+                  ],
+                ),
               ),
             ),
           ),
@@ -105,133 +95,27 @@ class _CreateFoodScreenState extends State<CreateFoodScreen> {
   Widget _buildWidgetFormCreateFood() {
     return Padding(
       padding: const EdgeInsets.all(12.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          GestureDetector(
-            onTap: () {
-              Navigator.pop(context);
-            },
-            child: Icon(
-              Icons.arrow_back_ios,
-              color: Colors.red[400],
-            ),
-          ),
-          SizedBox(height: 16.0),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(8, 20, 8, 10),
-            child: Text(
-              widget.isEdit ? 'Edit\nFood' : 'Add\nNew Food',
-              style: Theme.of(context).textTheme.display1.merge(
-                    TextStyle(color: Colors.grey[800], fontSize: 24),
-                  ),
-            ),
-          ),
-          SizedBox(height: 16.0),
-          Container(
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(40),
-                color: Colors.white,
-                boxShadow: [
-                  BoxShadow(
-                    color: Color.fromRGBO(196, 135, 198, .3),
-                    blurRadius: 20,
-                    offset: Offset(0, 10),
-                  )
-                ]),
-            child: Column(
-              children: <Widget>[
-                Container(
-                  padding: EdgeInsets.all(10),
-                  child: TextField(
-                    controller: controllerName,
-                    decoration: InputDecoration(
-                      hintText: 'food name',
-                      border: InputBorder.none,
-                    ),
-                    style: TextStyle(fontSize: 16.0),
-                  ),
-                )
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildWidgetFormEditFood() {
-    return Expanded(
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 0.0),
+      child: SingleChildScrollView(
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Container(
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(40),
-                  color: Colors.white,
-                  boxShadow: [
-                    BoxShadow(
-                      color: Color.fromRGBO(196, 135, 198, .3),
-                      blurRadius: 20,
-                      offset: Offset(0, 10),
-                    )
-                  ]),
-              child: Column(
-                children: <Widget>[
-                  Container(
-                    padding: EdgeInsets.all(10),
-                    child: TextField(
-                      keyboardType: TextInputType.multiline,
-                      maxLines: null,
-                      controller: controllerDescription,
-                      decoration: InputDecoration(
-                        hintText: 'description',
-                        border: InputBorder.none,
-                      ),
-                      style: TextStyle(fontSize: 16.0),
-                    ),
-                  )
-                ],
+            GestureDetector(
+              onTap: () {
+                Navigator.pop(context);
+              },
+              child: Icon(
+                Icons.arrow_back_ios,
+                color: Colors.red[400],
               ),
             ),
-            SizedBox(height: 30.0),
-            Container(
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(40),
-                  color: Colors.white,
-                  boxShadow: [
-                    BoxShadow(
-                      color: Color.fromRGBO(196, 135, 198, .3),
-                      blurRadius: 20,
-                      offset: Offset(0, 10),
-                    )
-                  ]),
-              child: Container(
-                padding: EdgeInsets.all(10),
-                child: TextField(
-                  controller: controllerDate,
-                  decoration: InputDecoration(
-                    hintText: 'Date',
-                    border: InputBorder.none,
-                  ),
-                  style: TextStyle(fontSize: 16.0),
-                  readOnly: true,
-                  onTap: () async {
-                    DateTime today = DateTime.now();
-                    DateTime datePicker = await showDatePicker(
-                      context: context,
-                      initialDate: date,
-                      firstDate: today,
-                      lastDate: DateTime(2022),
-                    );
-                    if (datePicker != null) {
-                      date = datePicker;
-                      controllerDate.text =
-                          DateFormat('dd MMMM yyyy').format(date);
-                    }
-                  },
-                ),
+            SizedBox(height: 16.0),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(8, 20, 8, 10),
+              child: Text(
+                widget.isEdit ? 'Edit\nFood' : 'Add\nNew Food',
+                style: Theme.of(context).textTheme.display1.merge(
+                      TextStyle(color: Colors.grey[800], fontSize: 24),
+                    ),
               ),
             ),
           ],
@@ -240,70 +124,245 @@ class _CreateFoodScreenState extends State<CreateFoodScreen> {
     );
   }
 
-  Widget _buildWidgetBtnCreateFood() {
-    return Container(
-      width: double.infinity,
-      padding: const EdgeInsets.fromLTRB(20, 0, 20, 10),
-      child: RaisedButton(
-        color: Colors.red[400],
-        child: Text(
-          widget.isEdit ? 'UPDATE' : 'CREATE',
-          style: TextStyle(
-            fontSize: 16.0,
-            fontWeight: FontWeight.bold,
+  Widget _buildWidgetFormEditFood() {
+    return Expanded(
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 0.0),
+        child: SingleChildScrollView(
+          child: Column(
+            children: <Widget>[
+              Container(
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    color: Colors.white,
+                    boxShadow: [
+                      BoxShadow(
+                        color: Color.fromRGBO(196, 135, 198, .3),
+                        blurRadius: 20,
+                        offset: Offset(0, 10),
+                      )
+                    ]),
+                child: Column(
+                  children: <Widget>[
+                    Container(
+                      padding: EdgeInsets.all(10),
+                      child: TextField(
+                        controller: controllerName,
+                        decoration: InputDecoration(
+                          hintText: 'food name',
+                          border: InputBorder.none,
+                        ),
+                        style: TextStyle(fontSize: 16.0),
+                      ),
+                    )
+                  ],
+                ),
+              ),
+              SizedBox(height: 30.0),
+              Container(
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    color: Colors.white,
+                    boxShadow: [
+                      BoxShadow(
+                        color: Color.fromRGBO(196, 135, 198, .3),
+                        blurRadius: 20,
+                        offset: Offset(0, 10),
+                      )
+                    ]),
+                child: Column(
+                  children: <Widget>[
+                    Container(
+                      padding: EdgeInsets.all(10),
+                      child: TextField(
+                        keyboardType: TextInputType.multiline,
+                        maxLines: null,
+                        controller: controllerDescription,
+                        decoration: InputDecoration(
+                          hintText: 'description',
+                          border: InputBorder.none,
+                        ),
+                        style: TextStyle(fontSize: 16.0),
+                      ),
+                    )
+                  ],
+                ),
+              ),
+              SizedBox(height: 30.0),
+              Container(
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    color: Colors.white,
+                    boxShadow: [
+                      BoxShadow(
+                        color: Color.fromRGBO(196, 135, 198, .3),
+                        blurRadius: 20,
+                        offset: Offset(0, 10),
+                      )
+                    ]),
+                child: Container(
+                  padding: EdgeInsets.all(10),
+                  child: TextField(
+                    controller: controllerDate,
+                    decoration: InputDecoration(
+                      hintText: 'Date',
+                      border: InputBorder.none,
+                    ),
+                    style: TextStyle(fontSize: 16.0),
+                    readOnly: true,
+                    onTap: () async {
+                      DateTime today = DateTime.now();
+                      DateTime datePicker = await showDatePicker(
+                        context: context,
+                        initialDate: date,
+                        firstDate: today,
+                        lastDate: DateTime(2022),
+                      );
+                      if (datePicker != null) {
+                        date = datePicker;
+                        controllerDate.text =
+                            DateFormat('dd MMMM yyyy').format(date);
+                      }
+                    },
+                  ),
+                ),
+              ),
+              SizedBox(height: 30.0),
+              Container(
+                width: double.infinity,
+                padding: const EdgeInsets.fromLTRB(20, 0, 20, 10),
+                child: RaisedButton(
+                  color: Colors.red[400],
+                  child: Text(
+                    widget.isEdit ? 'UPDATE' : 'CREATE',
+                    style: TextStyle(
+                      fontSize: 16.0,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  textColor: Colors.white,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15.0),
+                  ),
+                  onPressed: () async {
+                    String name = controllerName.text;
+                    String description = controllerDescription.text;
+                    String date = controllerDate.text;
+                    if (name.isEmpty) {
+                      _showSnackBarMessage('Name is required');
+                      return;
+                    } else if (description.isEmpty) {
+                      _showSnackBarMessage('Description is required');
+                      return;
+                    }
+                    setState(() => isLoading = true);
+                    if (widget.isEdit) {
+                      DocumentReference documentFood = firestore.document(
+                          'users/${currentUser.uid}/foods/${widget.documentId}');
+                      firestore.runTransaction((transaction) async {
+                        DocumentSnapshot food =
+                            await transaction.get(documentFood);
+                        if (food.exists) {
+                          await transaction.update(
+                            documentFood,
+                            <String, dynamic>{
+                              'name': name,
+                              'description': description,
+                              'date': date,
+                            },
+                          );
+                          Navigator.pop(context, true);
+                        }
+                      });
+                    } else {
+                      CollectionReference foods = firestore
+                          .collection("users")
+                          .document(currentUser.uid)
+                          .collection("foods");
+                      DocumentReference result =
+                          await foods.add(<String, dynamic>{
+                        'name': name,
+                        'description': description,
+                        'date': date,
+                      });
+                      if (result.documentID != null) {
+                        Navigator.pop(context, true);
+                      }
+                    }
+                  },
+                ),
+              )
+            ],
           ),
         ),
-        textColor: Colors.white,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10.0),
-        ),
-        onPressed: () async {
-          String name = controllerName.text;
-          String description = controllerDescription.text;
-          String date = controllerDate.text;
-          if (name.isEmpty) {
-            _showSnackBarMessage('Name is required');
-            return;
-          } else if (description.isEmpty) {
-            _showSnackBarMessage('Description is required');
-            return;
-          }
-          setState(() => isLoading = true);
-          if (widget.isEdit) {
-            DocumentReference documentFood = firestore.document(
-                'users/${currentUser.uid}/foods/${widget.documentId}');
-            firestore.runTransaction((transaction) async {
-              DocumentSnapshot food = await transaction.get(documentFood);
-              if (food.exists) {
-                await transaction.update(
-                  documentFood,
-                  <String, dynamic>{
-                    'name': name,
-                    'description': description,
-                    'date': date,
-                  },
-                );
-                Navigator.pop(context, true);
-              }
-            });
-          } else {
-            CollectionReference foods = firestore
-                .collection("users")
-                .document(currentUser.uid)
-                .collection("foods");
-            DocumentReference result = await foods.add(<String, dynamic>{
-              'name': name,
-              'description': description,
-              'date': date,
-            });
-            if (result.documentID != null) {
-              Navigator.pop(context, true);
-            }
-          }
-        },
       ),
     );
   }
+
+  // Widget _buildWidgetBtnCreateFood() {
+  //   return Container(
+  //     width: double.infinity,
+  //     padding: const EdgeInsets.fromLTRB(20, 0, 20, 10),
+  //     child: RaisedButton(
+  //       color: Colors.red[400],
+  //       child: Text(
+  //         widget.isEdit ? 'UPDATE' : 'CREATE',
+  //         style: TextStyle(
+  //           fontSize: 16.0,
+  //           fontWeight: FontWeight.bold,
+  //         ),
+  //       ),
+  //       textColor: Colors.white,
+  //       shape: RoundedRectangleBorder(
+  //         borderRadius: BorderRadius.circular(10.0),
+  //       ),
+  //       onPressed: () async {
+  //         String name = controllerName.text;
+  //         String description = controllerDescription.text;
+  //         String date = controllerDate.text;
+  //         if (name.isEmpty) {
+  //           _showSnackBarMessage('Name is required');
+  //           return;
+  //         } else if (description.isEmpty) {
+  //           _showSnackBarMessage('Description is required');
+  //           return;
+  //         }
+  //         setState(() => isLoading = true);
+  //         if (widget.isEdit) {
+  //           DocumentReference documentFood = firestore.document(
+  //               'users/${currentUser.uid}/foods/${widget.documentId}');
+  //           firestore.runTransaction((transaction) async {
+  //             DocumentSnapshot food = await transaction.get(documentFood);
+  //             if (food.exists) {
+  //               await transaction.update(
+  //                 documentFood,
+  //                 <String, dynamic>{
+  //                   'name': name,
+  //                   'description': description,
+  //                   'date': date,
+  //                 },
+  //               );
+  //               Navigator.pop(context, true);
+  //             }
+  //           });
+  //         } else {
+  //           CollectionReference foods = firestore
+  //               .collection("users")
+  //               .document(currentUser.uid)
+  //               .collection("foods");
+  //           DocumentReference result = await foods.add(<String, dynamic>{
+  //             'name': name,
+  //             'description': description,
+  //             'date': date,
+  //           });
+  //           if (result.documentID != null) {
+  //             Navigator.pop(context, true);
+  //           }
+  //         }
+  //       },
+  //     ),
+  //   );
+  // }
 
   void _showSnackBarMessage(String message) {
     scaffoldState.currentState.showSnackBar(SnackBar(

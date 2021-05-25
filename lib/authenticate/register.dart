@@ -35,15 +35,19 @@ class _RegisterPageState extends State<RegisterPage> {
     Pattern pattern =
         r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
     RegExp regex = new RegExp(pattern);
-    if (!regex.hasMatch(value)) {
-      return 'Invalid email format';
+    if (value.isEmpty) {
+      return 'Please enter an email';
+    } else if (!regex.hasMatch(value)) {
+      return "Invalid email";
     } else {
       return null;
     }
   }
 
   String pwdValidator(String value) {
-    if (value.length < 8) {
+    if (value.isEmpty) {
+      return 'Please enter a password';
+    } else if (value.length < 8) {
       return 'Password must be longer than 8 characters';
     } else {
       return null;
@@ -80,7 +84,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     children: <Widget>[
                       Container(
                         decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(40),
+                            borderRadius: BorderRadius.circular(20),
                             color: Colors.white,
                             boxShadow: [
                               BoxShadow(
@@ -100,8 +104,12 @@ class _RegisterPageState extends State<RegisterPage> {
                                 ),
                                 controller: firstNameInputController,
                                 validator: (value) {
-                                  if (value.length < 3) {
-                                    return "Please enter a valid first name.";
+                                  if (value.isEmpty) {
+                                    return 'Please give a first name';
+                                  } else if (value.length < 3) {
+                                    return "Please enter a valid first name";
+                                  } else {
+                                    return null;
                                   }
                                 },
                               ),
@@ -112,7 +120,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       SizedBox(height: 20.0),
                       Container(
                         decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(40),
+                            borderRadius: BorderRadius.circular(20),
                             color: Colors.white,
                             boxShadow: [
                               BoxShadow(
@@ -132,8 +140,12 @@ class _RegisterPageState extends State<RegisterPage> {
                                   ),
                                   controller: lastNameInputController,
                                   validator: (value) {
-                                    if (value.length < 3) {
-                                      return "Please enter a valid last name.";
+                                    if (value.isEmpty) {
+                                      return 'Please give a last name';
+                                    } else if (value.length < 3) {
+                                      return "Please enter a valid last name";
+                                    } else {
+                                      return null;
                                     }
                                   }),
                             ),
@@ -143,7 +155,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       SizedBox(height: 20.0),
                       Container(
                         decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(40),
+                            borderRadius: BorderRadius.circular(20),
                             color: Colors.white,
                             boxShadow: [
                               BoxShadow(
@@ -166,8 +178,12 @@ class _RegisterPageState extends State<RegisterPage> {
                                   ),
                                   controller: usernameInputController,
                                   validator: (value) {
-                                    if (value.length < 3) {
-                                      return "Please enter a valid username.";
+                                    if (value.isEmpty) {
+                                      return 'Please give a username ';
+                                    } else if (value.length < 3) {
+                                      return "Please enter a valid username";
+                                    } else {
+                                      return null;
                                     }
                                   }),
                             ),
@@ -177,7 +193,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       SizedBox(height: 20.0),
                       Container(
                         decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(40),
+                            borderRadius: BorderRadius.circular(20),
                             color: Colors.white,
                             boxShadow: [
                               BoxShadow(
@@ -206,7 +222,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       SizedBox(height: 20.0),
                       Container(
                         decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(40),
+                            borderRadius: BorderRadius.circular(20),
                             color: Colors.white,
                             boxShadow: [
                               BoxShadow(
@@ -235,7 +251,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       SizedBox(height: 20.0),
                       Container(
                         decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(40),
+                            borderRadius: BorderRadius.circular(20),
                             color: Colors.white,
                             boxShadow: [
                               BoxShadow(
@@ -268,14 +284,14 @@ class _RegisterPageState extends State<RegisterPage> {
                           Text(
                             'Create',
                             style: TextStyle(
-                                fontSize: 30, fontWeight: FontWeight.bold),
+                                fontSize: 18, fontWeight: FontWeight.bold),
                           ),
                           SizedBox(
                             width: 20,
                           ),
                           RaisedButton(
                             shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10),
+                              borderRadius: BorderRadius.circular(15),
                             ),
                             child:
                                 Icon(Icons.arrow_forward, color: Colors.white),

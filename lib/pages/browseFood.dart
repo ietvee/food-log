@@ -6,6 +6,8 @@ import 'package:url_launcher/url_launcher.dart';
 import 'dart:core';
 
 class FoodData extends StatelessWidget {
+  double widthScreen;
+  double heightScreen;
   final String apiUrl =
       "https://api.edamam.com/search?q=chicken&app_id=2a8139ca&app_key=7c2a72e3232ab19beadbad328c0fe09f&from=0&to=100";
 
@@ -28,9 +30,14 @@ class FoodData extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    MediaQueryData mediaQueryData = MediaQuery.of(context);
+    widthScreen = mediaQueryData.size.width;
+    heightScreen = mediaQueryData.size.height;
     return Scaffold(
       body: Container(
-        color: Colors.grey[50],
+        // color: Colors.red[50],
+        height: heightScreen,
+
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
@@ -48,78 +55,164 @@ class FoodData extends StatelessWidget {
             ),
             Flexible(
               child: Padding(
-                padding: const EdgeInsets.only(top: 60),
+                padding: const EdgeInsets.only(top: 20),
                 child: Container(
-                  height: 600,
+                  height: heightScreen,
                   child: FutureBuilder<List<dynamic>>(
                     future: fetchFoods(),
                     builder: (BuildContext context, AsyncSnapshot snapshot) {
                       if (snapshot.hasData) {
                         return ListView.builder(
                             shrinkWrap: true,
-                            scrollDirection: Axis.horizontal,
-                            padding: EdgeInsets.all(8),
+                            // scrollDirection: Axis.horizontal,
+                            // padding: EdgeInsets.all(8),
                             itemCount: snapshot.data.length,
                             itemBuilder: (BuildContext context, int index) {
                               return Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Container(
-                                  height: 200,
-                                  width: 400,
-                                  child: Card(
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(15.0),
-                                    ),
+                                padding: const EdgeInsets.all(15.0),
+                                child: Padding(
+                                  padding:
+                                      const EdgeInsets.fromLTRB(20, 0, 20, 10),
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(20),
+                                        color: Colors.white,
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color: Color.fromRGBO(
+                                                196, 135, 198, .3),
+                                            blurRadius: 20,
+                                            offset: Offset(0, 10),
+                                          )
+                                        ]),
+                                    height: 220,
                                     child: Padding(
-                                      padding: const EdgeInsets.all(20.0),
-                                      child: Column(
-                                        children: <Widget>[
-                                          Container(
-                                            height: 250,
-                                            width: 250,
-                                            child: ClipRRect(
-                                              borderRadius:
-                                                  BorderRadius.circular(15.0),
-                                              child: Image(
-                                                image: NetworkImage(_image(
-                                                    snapshot.data[index])),
-                                              ),
+                                      padding: const EdgeInsets.fromLTRB(
+                                          10, 0, 10, 0),
+                                      child: Row(children: [
+                                        Expanded(
+                                          flex: 2,
+                                          child: ClipRRect(
+                                            borderRadius:
+                                                BorderRadius.circular(15.0),
+                                            child: Image(
+                                              image: NetworkImage(
+                                                  _image(snapshot.data[index])),
                                             ),
                                           ),
-                                          Padding(
-                                            padding: const EdgeInsets.fromLTRB(
-                                                0, 20, 0, 0),
-                                            child: Text(
-                                              _name(snapshot.data[index]),
-                                              style: TextStyle(fontSize: 28),
+                                        ),
+                                        SizedBox(width: 20),
+                                        Expanded(
+                                          flex: 6,
+                                          child: Container(
+                                            child: Column(
+                                              children: <Widget>[
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          top: 45),
+                                                  child: ListTile(
+                                                    title: Text(
+                                                      _name(
+                                                          snapshot.data[index]),
+                                                      style: TextStyle(
+                                                          fontSize: 22,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          color:
+                                                              Colors.grey[700]),
+                                                    ),
+                                                    subtitle: Column(
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .start,
+                                                      children: [
+                                                        Text(
+                                                          "For more details, click ↓",
+                                                          style: TextStyle(
+                                                              fontSize: 18,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold,
+                                                              color: Colors
+                                                                  .grey[700]),
+                                                        ),
+                                                        Linkify(
+                                                          onOpen: (link) async {
+                                                            if (await canLaunch(
+                                                                link.url)) {
+                                                              await launch(
+                                                                  link.url);
+                                                            } else {
+                                                              throw 'Could not launch $link';
+                                                            }
+                                                          },
+                                                          text: _url(snapshot
+                                                              .data[index]),
+                                                          style: TextStyle(
+                                                              color: Colors
+                                                                  .yellow),
+                                                          linkStyle: TextStyle(
+                                                            color: Colors
+                                                                .blueAccent,
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
                                             ),
                                           ),
-                                          Row(
-                                            children: [
-                                              Text("Click here to know more:"),
-                                            ],
-                                          ),
-                                          Linkify(
-                                            onOpen: (link) async {
-                                              if (await canLaunch(link.url)) {
-                                                await launch(link.url);
-                                              } else {
-                                                throw 'Could not launch $link';
-                                              }
-                                            },
-                                            text: _url(snapshot.data[index]),
-                                            style:
-                                                TextStyle(color: Colors.yellow),
-                                            linkStyle: TextStyle(
-                                                color: Colors.blueAccent,
-                                                fontSize: 20),
-                                          ),
-                                        ],
-                                      ),
+                                        ),
+                                      ]),
                                     ),
                                   ),
                                 ),
                               );
+                              // return Card(
+                              //   child: ListTile(
+                              //     leading: Container(
+                              //       height: 150,
+                              //       width: 150,
+                              //       child: ClipRRect(
+                              //         borderRadius: BorderRadius.circular(15.0),
+                              //         child: Image(
+                              //           image: NetworkImage(
+                              //               _image(snapshot.data[index])),
+                              //         ),
+                              //       ),
+                              //     ),
+                              //     title: Text(
+                              //       _name(snapshot.data[index]),
+                              //       style: TextStyle(fontSize: 22),
+                              //     ),
+                              //     subtitle: Column(
+                              //       crossAxisAlignment:
+                              //           CrossAxisAlignment.start,
+                              //       children: <Widget>[
+                              //         Text("Click here to know more:"),
+                              //         Linkify(
+                              //           onOpen: (link) async {
+                              //             if (await canLaunch(link.url)) {
+                              //               await launch(link.url);
+                              //             } else {
+                              //               throw 'Could not launch $link';
+                              //             }
+                              //           },
+                              //           text: _url(snapshot.data[index]),
+                              //           // maxLines: null,
+                              //           // overflow:
+                              //           //     TextOverflow.ellipsis,
+                              //           style: TextStyle(color: Colors.yellow),
+                              //           linkStyle: TextStyle(
+                              //             color: Colors.blueAccent,
+                              //           ),
+                              //         ),
+                              //       ],
+                              //     ),
+                              //   ),
+                              // );
                             });
                       } else {
                         return Center(
