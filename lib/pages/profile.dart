@@ -10,7 +10,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(primaryColor: Colors.red[400]),
+      theme: ThemeData(primaryColor: Colors.deepOrangeAccent),
       home: Profile(),
     );
   }
@@ -75,7 +75,7 @@ class _ProfileState extends State<Profile> {
           onPressed: () => Navigator.of(context).pop(),
         ),
         iconTheme: IconThemeData(
-          color: Colors.red[400],
+          color: Colors.deepOrangeAccent,
         ),
         backgroundColor: Colors.transparent,
         bottomOpacity: 0.0,
@@ -213,7 +213,7 @@ class _ProfileState extends State<Profile> {
                     'Logout',
                     style: TextStyle(color: Colors.white),
                   ),
-                  color: Colors.red[400],
+                  color: Colors.deepOrangeAccent,
                   onPressed: () {
                     FirebaseAuth.instance
                         .signOut()

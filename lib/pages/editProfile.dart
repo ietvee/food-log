@@ -78,7 +78,7 @@ class _EditProfileState extends State<EditProfile> {
                           child: Center(
                             child: CircularProgressIndicator(
                               valueColor: AlwaysStoppedAnimation<Color>(
-                                  Colors.red[400]),
+                                  Colors.deepOrangeAccent),
                             ),
                           ),
                         )
@@ -104,7 +104,7 @@ class _EditProfileState extends State<EditProfile> {
             },
             child: Icon(
               Icons.arrow_back_ios,
-              color: Colors.red[400],
+              color: Colors.deepOrangeAccent,
             ),
           ),
           SizedBox(height: 16.0),
@@ -165,7 +165,7 @@ class _EditProfileState extends State<EditProfile> {
       width: double.infinity,
       padding: const EdgeInsets.fromLTRB(20, 0, 20, 100),
       child: RaisedButton(
-        color: Colors.red[400],
+        color: Colors.deepOrangeAccent,
         child: Text(
           'Done',
           style: TextStyle(
@@ -208,7 +208,7 @@ class _EditProfileState extends State<EditProfile> {
 
   void _showSnackBarMessage(String message) {
     scaffoldState.currentState.showSnackBar(SnackBar(
-      backgroundColor: Colors.red[400],
+      backgroundColor: Colors.deepOrangeAccent,
       content: Container(
         child: Padding(
           padding: const EdgeInsets.all(8.0),

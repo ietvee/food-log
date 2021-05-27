@@ -105,7 +105,7 @@ class _CreateFoodScreenState extends State<CreateFoodScreen> {
               },
               child: Icon(
                 Icons.arrow_back_ios,
-                color: Colors.red[400],
+                color: Colors.deepOrangeAccent,
               ),
             ),
             SizedBox(height: 16.0),
@@ -232,7 +232,7 @@ class _CreateFoodScreenState extends State<CreateFoodScreen> {
                 width: double.infinity,
                 padding: const EdgeInsets.fromLTRB(20, 0, 20, 10),
                 child: RaisedButton(
-                  color: Colors.red[400],
+                  color: Colors.deepOrangeAccent,
                   child: Text(
                     widget.isEdit ? 'UPDATE' : 'CREATE',
                     style: TextStyle(
@@ -304,7 +304,7 @@ class _CreateFoodScreenState extends State<CreateFoodScreen> {
   //     width: double.infinity,
   //     padding: const EdgeInsets.fromLTRB(20, 0, 20, 10),
   //     child: RaisedButton(
-  //       color: Colors.red[400],
+  //       color: Colors.deepOrangeAccent,
   //       child: Text(
   //         widget.isEdit ? 'UPDATE' : 'CREATE',
   //         style: TextStyle(
@@ -366,7 +366,7 @@ class _CreateFoodScreenState extends State<CreateFoodScreen> {
 
   void _showSnackBarMessage(String message) {
     scaffoldState.currentState.showSnackBar(SnackBar(
-      backgroundColor: Colors.red[400],
+      backgroundColor: Colors.deepOrangeAccent,
       content: Container(
         child: Padding(
           padding: const EdgeInsets.all(8.0),

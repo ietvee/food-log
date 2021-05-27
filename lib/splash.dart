@@ -40,7 +40,7 @@ class _SplashScreenState extends State<SplashScreen> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
                   Expanded(
-                    flex: 7,
+                    flex: 3,
                     child: Container(
                         child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -60,8 +60,8 @@ class _SplashScreenState extends State<SplashScreen> {
                     child: Column(
                       children: <Widget>[
                         CircularProgressIndicator(
-                          valueColor:
-                              AlwaysStoppedAnimation<Color>(Colors.red[400]),
+                          valueColor: AlwaysStoppedAnimation<Color>(
+                              Colors.deepOrangeAccent),
                         ),
                         Container(
                           height: 10,

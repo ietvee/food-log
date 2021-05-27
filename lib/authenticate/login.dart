@@ -26,7 +26,7 @@ class _LoginPageState extends State<LoginPage> {
             context,
             MaterialPageRoute(
                 builder: (context) => HomeScreen(uid: currentUser.uid)),
-            (Route<dynamic> route) => false);
+            (Route<dynamic> route) => true);
       }
     });
     super.initState();
@@ -55,9 +55,22 @@ class _LoginPageState extends State<LoginPage> {
     }
   }
 
+  bool _obscureText = true;
+
+  String _password;
+
+  void _toggle() {
+    setState(() {
+      _obscureText = !_obscureText;
+    });
+  }
+
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        key: _scaffoldKey,
         body: Container(
             padding: const EdgeInsets.fromLTRB(20, 160, 20, 0),
             child: SingleChildScrollView(
@@ -128,9 +141,19 @@ class _LoginPageState extends State<LoginPage> {
                                 decoration: InputDecoration(
                                   border: InputBorder.none,
                                   hintText: "password",
+                                  suffixIcon: IconButton(
+                                      onPressed: _toggle,
+                                      icon: _obscureText
+                                          ? Icon(
+                                              Icons.remove_red_eye,
+                                              color: Colors.deepOrangeAccent,
+                                            )
+                                          : Icon(Icons.remove_red_eye_outlined,
+                                              color: Colors.deepOrangeAccent)),
                                 ),
+                                onSaved: (val) => _password = val,
                                 controller: pwdInputController,
-                                obscureText: true,
+                                obscureText: _obscureText,
                                 validator: pwdValidator,
                               ),
                             ),
@@ -155,7 +178,7 @@ class _LoginPageState extends State<LoginPage> {
                             ),
                             child:
                                 Icon(Icons.arrow_forward, color: Colors.white),
-                            color: Colors.red[400],
+                            color: Colors.deepOrangeAccent,
                             textColor: Colors.white,
                             onPressed: () {
                               if (_loginFormKey.currentState.validate()) {
@@ -178,27 +201,54 @@ class _LoginPageState extends State<LoginPage> {
                                                             uid:
                                                                 currentUser.uid,
                                                           ))))
+                                          // Navigator.pushNamed(
+                                          //     context, "/home"))
                                           .catchError((err) => print(err)))
-                                      .catchError((err) => print(err));
-                                } else {
-                                  showDialog(
-                                      context: context,
-                                      builder: (BuildContext context) {
-                                        return AlertDialog(
-                                          title: Text("Error"),
-                                          content: Text(
-                                              "The passwords do not match"),
-                                          actions: <Widget>[
-                                            FlatButton(
-                                              child: Text("Close"),
-                                              onPressed: () {
-                                                Navigator.of(context).pop();
-                                              },
-                                            )
-                                          ],
-                                        );
-                                      });
+                                      .catchError((err) => showDialog(
+                                          context: context,
+                                          builder: (BuildContext context) {
+                                            return AlertDialog(
+                                              title: Text(err.toString()),
+                                              content: Text(""),
+                                              actions: <Widget>[
+                                                RaisedButton(
+                                                  shape: RoundedRectangleBorder(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            10),
+                                                  ),
+                                                  child: Text('Close',
+                                                      style: TextStyle(
+                                                          color: Colors.white)),
+                                                  color:
+                                                      Colors.deepOrangeAccent,
+                                                  onPressed: () {
+                                                    Navigator.of(context).pop();
+                                                  },
+                                                ),
+                                              ],
+                                            );
+                                          }));
                                 }
+                                // } else {
+                                //   showDialog(
+                                //       context: context,
+                                //       builder: (BuildContext context) {
+                                //         return AlertDialog(
+                                //           title: Text("Error"),
+                                //           content: Text(
+                                //               "The passwords do not match"),
+                                //           actions: <Widget>[
+                                //             FlatButton(
+                                //               child: Text("Close"),
+                                //               onPressed: () {
+                                //                 Navigator.of(context).pop();
+                                //               },
+                                //             )
+                                //           ],
+                                //         );
+                                //       });
+                                // }
                               }
                             },
                           ),

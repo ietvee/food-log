@@ -49,7 +49,7 @@ class FoodData extends StatelessWidget {
                 padding: const EdgeInsets.fromLTRB(20, 30, 20, 10),
                 child: Icon(
                   Icons.arrow_back_ios,
-                  color: Colors.red[400],
+                  color: Colors.deepOrangeAccent,
                 ),
               ),
             ),
@@ -221,7 +221,7 @@ class FoodData extends StatelessWidget {
                           children: <Widget>[
                             CircularProgressIndicator(
                               valueColor: AlwaysStoppedAnimation<Color>(
-                                  Colors.red[400]),
+                                  Colors.deepOrangeAccent),
                             ),
                             Container(
                               height: 10,

@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primaryColor: Colors.red[400],
+        primaryColor: Colors.deepOrangeAccent,
       ),
       home: HomeScreen(),
     );
@@ -59,7 +59,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        iconTheme: IconThemeData(color: Colors.red[400]),
+        automaticallyImplyLeading: false,
+        iconTheme: IconThemeData(color: Colors.deepOrangeAccent),
         backgroundColor: Colors.transparent,
         bottomOpacity: 0.0,
         elevation: 0.0,
@@ -107,14 +108,14 @@ class _HomeScreenState extends State<HomeScreen> {
                   builder: (context) => CreateFoodScreen(isEdit: false)));
           if (result != null && result) {
             scaffoldState.currentState.showSnackBar(SnackBar(
-              backgroundColor: Colors.red[400],
+              backgroundColor: Colors.deepOrangeAccent,
               content: Text('FOOD has been added',
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
             ));
             setState(() {});
           }
         },
-        backgroundColor: Colors.red[400],
+        backgroundColor: Colors.deepOrangeAccent,
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
@@ -166,7 +167,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         'Browse Food',
                         style: TextStyle(color: Colors.white),
                       ),
-                      color: Colors.red[400],
+                      color: Colors.deepOrangeAccent,
                       onPressed: () {
                         Navigator.push(
                           context,
@@ -316,7 +317,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                     if (result != null && result) {
                                       scaffoldState.currentState
                                           .showSnackBar(SnackBar(
-                                        backgroundColor: Colors.red[400],
+                                        backgroundColor:
+                                            Colors.deepOrangeAccent,
                                         content: Text('FOOD has been updated',
                                             style: TextStyle(
                                                 fontWeight: FontWeight.bold,
@@ -343,7 +345,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                               child: Text('No',
                                                   style: TextStyle(
                                                       color: Colors.white)),
-                                              color: Colors.red[400],
+                                              color: Colors.deepOrangeAccent,
                                               onPressed: () {
                                                 Navigator.pop(context);
                                               },
@@ -356,7 +358,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                               child: Text('Delete',
                                                   style: TextStyle(
                                                       color: Colors.white)),
-                                              color: Colors.red[400],
+                                              color: Colors.deepOrangeAccent,
                                               onPressed: () {
                                                 document.reference.delete();
                                                 Navigator.pop(context);

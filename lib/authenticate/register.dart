@@ -62,7 +62,7 @@ class _RegisterPageState extends State<RegisterPage> {
           bottomOpacity: 0.0,
           elevation: 0.0,
           leading: IconButton(
-            icon: Icon(Icons.arrow_back_ios, color: Colors.red[400]),
+            icon: Icon(Icons.arrow_back_ios, color: Colors.deepOrangeAccent),
             onPressed: () => Navigator.of(context).pop(),
           ),
         ),
@@ -295,7 +295,7 @@ class _RegisterPageState extends State<RegisterPage> {
                             ),
                             child:
                                 Icon(Icons.arrow_forward, color: Colors.white),
-                            color: Colors.red[400],
+                            color: Colors.deepOrangeAccent,
                             textColor: Colors.white,
                             onPressed: () {
                               if (_registerFormKey.currentState.validate()) {
