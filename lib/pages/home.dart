@@ -177,7 +177,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ],
                 ),
-                Text('It\s time to share your food journey! ')
+                Text("It's time to share your food journey!")
               ],
             ),
           ),

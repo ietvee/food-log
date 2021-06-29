@@ -84,7 +84,7 @@ class _LoginPageState extends State<LoginPage> {
                       color: Colors.black54,
                       letterSpacing: 2,
                     )),
-                Text('Log in to your account ',
+                Text('Welcome back!',
                     style: TextStyle(
                       fontSize: 18,
                     )),
@@ -145,10 +145,10 @@ class _LoginPageState extends State<LoginPage> {
                                       onPressed: _toggle,
                                       icon: _obscureText
                                           ? Icon(
-                                              Icons.remove_red_eye,
+                                              Icons.visibility_off,
                                               color: Colors.deepOrangeAccent,
                                             )
-                                          : Icon(Icons.remove_red_eye_outlined,
+                                          : Icon(Icons.visibility,
                                               color: Colors.deepOrangeAccent)),
                                 ),
                                 onSaved: (val) => _password = val,
