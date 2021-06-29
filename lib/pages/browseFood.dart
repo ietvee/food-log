@@ -170,49 +170,6 @@ class FoodData extends StatelessWidget {
                                   ),
                                 ),
                               );
-                              // return Card(
-                              //   child: ListTile(
-                              //     leading: Container(
-                              //       height: 150,
-                              //       width: 150,
-                              //       child: ClipRRect(
-                              //         borderRadius: BorderRadius.circular(15.0),
-                              //         child: Image(
-                              //           image: NetworkImage(
-                              //               _image(snapshot.data[index])),
-                              //         ),
-                              //       ),
-                              //     ),
-                              //     title: Text(
-                              //       _name(snapshot.data[index]),
-                              //       style: TextStyle(fontSize: 22),
-                              //     ),
-                              //     subtitle: Column(
-                              //       crossAxisAlignment:
-                              //           CrossAxisAlignment.start,
-                              //       children: <Widget>[
-                              //         Text("Click here to know more:"),
-                              //         Linkify(
-                              //           onOpen: (link) async {
-                              //             if (await canLaunch(link.url)) {
-                              //               await launch(link.url);
-                              //             } else {
-                              //               throw 'Could not launch $link';
-                              //             }
-                              //           },
-                              //           text: _url(snapshot.data[index]),
-                              //           // maxLines: null,
-                              //           // overflow:
-                              //           //     TextOverflow.ellipsis,
-                              //           style: TextStyle(color: Colors.yellow),
-                              //           linkStyle: TextStyle(
-                              //             color: Colors.blueAccent,
-                              //           ),
-                              //         ),
-                              //       ],
-                              //     ),
-                              //   ),
-                              // );
                             });
                       } else {
                         return Center(

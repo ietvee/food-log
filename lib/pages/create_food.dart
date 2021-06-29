@@ -40,6 +40,16 @@ class _CreateFoodScreenState extends State<CreateFoodScreen> {
   DateTime date = DateTime.now();
   bool isLoading = false;
 
+  var currentFocus;
+
+  unfocus() {
+    currentFocus = FocusScope.of(context);
+
+    if (!currentFocus.hasPrimaryFocus) {
+      currentFocus.unfocus();
+    }
+  }
+
   FirebaseUser currentUser;
   @override
   void initState() {

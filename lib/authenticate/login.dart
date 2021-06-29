@@ -230,25 +230,6 @@ class _LoginPageState extends State<LoginPage> {
                                             );
                                           }));
                                 }
-                                // } else {
-                                //   showDialog(
-                                //       context: context,
-                                //       builder: (BuildContext context) {
-                                //         return AlertDialog(
-                                //           title: Text("Error"),
-                                //           content: Text(
-                                //               "The passwords do not match"),
-                                //           actions: <Widget>[
-                                //             FlatButton(
-                                //               child: Text("Close"),
-                                //               onPressed: () {
-                                //                 Navigator.of(context).pop();
-                                //               },
-                                //             )
-                                //           ],
-                                //         );
-                                //       });
-                                // }
                               }
                             },
                           ),

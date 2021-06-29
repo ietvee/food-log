@@ -30,12 +30,6 @@ class _ProfileState extends State<Profile> {
   final Firestore firestore = Firestore.instance;
   FirebaseUser currentUser;
 
-  // final Stream<QuerySnapshot> _getDocument = (() {
-  //   Future<void>.delayed(const Duration(seconds: 1));
-
-  //   Future<void>.delayed(const Duration(seconds: 1));
-  // })();
-
   @override
   initState() {
     this.getCurrentUser();
@@ -45,14 +39,6 @@ class _ProfileState extends State<Profile> {
   void getCurrentUser() async {
     currentUser = await FirebaseAuth.instance.currentUser();
   }
-
-  // Future<DocumentSnapshot> getDocument() async {
-  //   var firebaseUser = await FirebaseAuth.instance.currentUser();
-  //   return await Firestore.instance
-  //       .collection("users")
-  //       .document(firebaseUser.uid)
-  //       .get();
-  // }
 
   Stream<DocumentSnapshot> getData() async* {
     FirebaseUser user = await FirebaseAuth.instance.currentUser();
@@ -103,19 +89,6 @@ class _ProfileState extends State<Profile> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          // FutureBuilder(
-          //   future: getDocument(),
-          //   builder: (context, AsyncSnapshot<DocumentSnapshot> snapshot) {
-          //     if (snapshot.connectionState == ConnectionState.done) {
-          //       return Text(snapshot.data["fname"].toString().toUpperCase(),
-          //           style:
-          //               TextStyle(fontWeight: FontWeight.bold, fontSize: 38));
-          //     } else if (snapshot.connectionState == ConnectionState.none) {
-          //       return Text("No data");
-          //     }
-          //     return CircularProgressIndicator();
-          //   },
-          // ),
           Padding(
             padding: const EdgeInsets.fromLTRB(50, 30, 20, 30),
             child: Row(
@@ -168,37 +141,8 @@ class _ProfileState extends State<Profile> {
                   );
                 },
               );
-              // return ListView.builder(
-              //     padding: EdgeInsets.all(8.0),
-              //     itemCount: snapshot.data.documents.length,
-              //     itemBuilder: (BuildContext context, int index) {
-              //       DocumentSnapshot document =
-              //           snapshot.data.documents[index];
-              //       Map<String, dynamic> food = document.data;
-              //       return ListTile(
-              //         title: IconButton(
-              //           icon: const Icon(Icons.mode_edit),
-              //           onPressed: () {
-              //             setState(() {
-              //               Navigator.push(
-              //                 context,
-              //                 MaterialPageRoute(builder: (context) {
-              //                   return EditProfile(
-              //                     isEdit: true,
-              //                     documentId: document.documentID,
-              //                     fname: food['fname'],
-              //                   );
-              //                 }),
-              //               );
-              //             });
-              //           },
-              //         ),
-              //         trailing: Text(snapshot.data["fname"]),
-              //       );
-              //     });
             },
           ),
-
           Padding(
             padding: const EdgeInsets.fromLTRB(50, 10, 50, 60),
             child: Row(
