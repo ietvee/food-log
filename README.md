@@ -1,7 +1,7 @@
 # food_app
 
-It is an app for user to log in and create, read, update and delete of food record.
-Food records are stored using Cloud Firestore database.
+This is a Flutter app for you to log in your account and to create, read, update and delete of data record.
+Records are being stored using Cloud Firestore database.
 
 ## Getting Started
 
