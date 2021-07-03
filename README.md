@@ -1,4 +1,4 @@
-# food_app
+# FoodLog
 
 This is a Flutter app for you to log in your account and to create, read, update and delete of data record.
 Records are being stored using Cloud Firestore database.
