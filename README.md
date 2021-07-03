@@ -2,6 +2,7 @@
 
 This is a Flutter app for you to log in your account and to create, read, update and delete of data record.
 Records are being stored using Cloud Firestore database.
+You can also browse list of food data (data display is by consuming API).
 
 ## Getting Started
 
