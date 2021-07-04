@@ -4,6 +4,9 @@ This is a Flutter app for you to log in your account and to create, read, update
 Records are being stored using Cloud Firestore database.
 You can also browse list of food data (data display is by consuming API).
 
+### **Disclaimer**
+
+This project is developed with the intention of self-learning purpose and is developed by exploring online resources/materials from various learning platforms.
 
 -----
 
